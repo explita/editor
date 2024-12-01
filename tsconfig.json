@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2016",
+    "lib": ["ES2019", "DOM"],
+    "baseUrl": "./src",
+    "paths": {
+      "*": ["*"]
+    },
+    "outDir": "./dist",
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "emitDeclarationOnly": false,
+    "strict": true,
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "jsx": "react-jsx"
+  },
+  "include": ["src/**/*"]
+}
