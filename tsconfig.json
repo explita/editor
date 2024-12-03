@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2016",
+    "target": "ESNext",
     "lib": ["ES2019", "DOM"],
     "baseUrl": "./src",
     "paths": {
@@ -11,10 +11,11 @@
     "declarationDir": "./dist",
     "emitDeclarationOnly": false,
     "strict": true,
-    "module": "CommonJS",
+    "module": "ESNext",
     "esModuleInterop": true,
     "moduleResolution": "node",
     "jsx": "react-jsx"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

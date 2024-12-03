@@ -7,8 +7,7 @@
     font-family: "Agency FB Bold";
     font-style: normal;
     font-weight: normal;
-    src: local("Agency FB Bold"),
-      url("/tiptap/fonts/AGENCYB.woff") format("woff");
+    src: local("Agency FB Bold"), url("./fonts/AGENCYB.woff") format("woff");
   }
 }
 

@@ -5,9 +5,8 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "clean": "rimraf dist",
-    "build": "npm run clean && tsc && npm run copy-css && npm run copy-fonts",
-    "copy-css": "copy .\\src\\styles.css dist\\styles.css",
-    "copy-fonts": "xcopy .\\src\\fonts .\\dist\\fonts /E /I",
+    "build": "npm run clean && tsc && npm run copy-assets",
+    "copy-assets": "xcopy .\\src\\fonts .\\dist\\fonts /E /I && copy .\\src\\styles.css dist\\styles.css",
     "prepublishOnly": "npm run build",
     "publish": "npm publish --access public"
   },
