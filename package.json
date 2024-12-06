@@ -40,7 +40,7 @@
   ],
   "author": "explita",
   "license": "MIT",
-  "description": "`@explita/editor` is a highly customizable, modern rich-text editor built on top of TipTap for seamless integration into React applications. With a wide range of features and a user-friendly interface, it empowers developers to create visually stunning and interactive content for their web applications.",
+  "description": "`@explita/editor` is a versatile, modern rich-text editor built on TipTap for seamless integration into React applications. It provides extensive customization options and advanced features to cater to diverse content creation needs.",
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.2",
     "@radix-ui/react-dialog": "^1.1.2",
@@ -51,7 +51,6 @@
     "@tiptap/extension-color": "^2.10.3",
     "@tiptap/extension-font-family": "^2.10.3",
     "@tiptap/extension-highlight": "^2.10.3",
-    "@tiptap/extension-horizontal-rule": "^2.10.3",
     "@tiptap/extension-link": "^2.10.3",
     "@tiptap/extension-subscript": "^2.10.3",
     "@tiptap/extension-superscript": "^2.10.3",

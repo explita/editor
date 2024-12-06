@@ -2,17 +2,36 @@
 
 import { useRef, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
-import { DEFAULT_RULER_MARGIN, MIN_SPACE, PAGE_WIDTH } from "../lib/constants";
+import {
+  DEFAULT_RULER_MARGIN,
+  INCH_TO_PX,
+  MIN_SPACE,
+  PAGE_WIDTH,
+} from "../lib/constants";
+
+import { useEditorStore } from "../store/useEditorState";
+import { PagePadding } from "./PagePadding";
 
 const markers = Array.from({ length: 83 }, (_, i) => i);
 
 export function Ruler() {
-  const [leftMargin, setLeftMargin] = useState(DEFAULT_RULER_MARGIN);
-  const [rightMargin, setRightMargin] = useState(DEFAULT_RULER_MARGIN);
+  const { editorOpts, setEditorOpts } = useEditorStore();
+
   const [isDraggingLeft, setIsDraggingLeft] = useState(false);
   const [isDraggingRight, setIsDraggingRight] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const rulerRef = useRef<HTMLDivElement>(null);
+
+  function handlePagePadding(section: string, value: number) {
+    setEditorOpts((prev) => ({
+      ...prev,
+      padding: {
+        ...prev.padding,
+        [section]: value,
+      },
+    }));
+  }
 
   function handleLeftMouseDown() {
     setIsDraggingLeft(true);
@@ -32,17 +51,21 @@ export function Ruler() {
         const rawPosition = Math.max(0, Math.min(PAGE_WIDTH, relativeX));
 
         if (isDraggingLeft) {
-          const maxLeftPosition = PAGE_WIDTH - rightMargin - MIN_SPACE;
+          const maxLeftPosition =
+            PAGE_WIDTH - editorOpts.padding.right - MIN_SPACE;
           const newLeftPosition = Math.min(maxLeftPosition, rawPosition);
-          setLeftMargin(newLeftPosition);
+
+          handlePagePadding("left", newLeftPosition / INCH_TO_PX);
         } else if (isDraggingRight) {
-          const maxRightPosition = PAGE_WIDTH - (leftMargin + MIN_SPACE);
+          const maxRightPosition =
+            PAGE_WIDTH - (editorOpts.padding.left + MIN_SPACE);
           const newRightPosition = Math.max(PAGE_WIDTH - rawPosition, 0);
           const contraintRightPosition = Math.min(
             maxRightPosition,
             newRightPosition
           );
-          setRightMargin(contraintRightPosition);
+
+          handlePagePadding("right", contraintRightPosition / INCH_TO_PX);
         }
       }
     }
@@ -54,68 +77,72 @@ export function Ruler() {
   }
 
   function handleLeftDoubleClick() {
-    setLeftMargin(DEFAULT_RULER_MARGIN);
+    handlePagePadding("left", DEFAULT_RULER_MARGIN * INCH_TO_PX);
   }
 
   function handleRightDoubleClick() {
-    setRightMargin(DEFAULT_RULER_MARGIN);
+    handlePagePadding("right", DEFAULT_RULER_MARGIN * INCH_TO_PX);
   }
 
   return (
-    <div
-      ref={rulerRef}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
-      className="w-[816px] mx-auto h-6 border-b border-gray-300 flex items-end relative select-none print:hidden"
-    >
-      <div id="ruler-container" className="w-full h-full relative">
-        <Marker
-          position={leftMargin}
-          isLeft={true}
-          isDragging={isDraggingLeft}
-          onMouseDown={handleLeftMouseDown}
-          onDoudleClick={handleLeftDoubleClick}
-        />
-        <Marker
-          position={rightMargin}
-          isLeft={false}
-          isDragging={isDraggingRight}
-          onMouseDown={handleRightMouseDown}
-          onDoudleClick={handleRightDoubleClick}
-        />
-        <div className="absolute inset-x-0 bottom-0 h-full">
-          <div className="relative h-full w-[816px]">
-            {markers.map((marker) => {
-              const position = (marker * PAGE_WIDTH) / 82;
+    <>
+      <PagePadding opened={isDialogOpen} setOpened={setIsDialogOpen} />
+      <div
+        ref={rulerRef}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onDoubleClick={() => setIsDialogOpen(true)}
+        className="w-[816px] mx-auto h-6 border-b border-gray-300 flex items-end relative select-none print:hidden"
+      >
+        <div id="ruler-container" className="w-full h-full relative">
+          <Marker
+            position={editorOpts.padding.left * INCH_TO_PX || 0}
+            isLeft={true}
+            isDragging={isDraggingLeft}
+            onMouseDown={handleLeftMouseDown}
+            onDoudleClick={handleLeftDoubleClick}
+          />
+          <Marker
+            position={editorOpts.padding.right * INCH_TO_PX || 0}
+            isLeft={false}
+            isDragging={isDraggingRight}
+            onMouseDown={handleRightMouseDown}
+            onDoudleClick={handleRightDoubleClick}
+          />
+          <div className="absolute inset-x-0 bottom-0 h-full">
+            <div className="relative h-full w-[816px]">
+              {markers.map((marker) => {
+                const position = (marker * PAGE_WIDTH) / 82;
 
-              return (
-                <div
-                  key={marker}
-                  className="absolute bottom-0"
-                  style={{ left: `${position}px` }}
-                >
-                  {marker % 10 === 0 && (
-                    <>
-                      <span className="absolute bottom-0 w-[1px] h-2 bg-neutral-500" />
-                      <span className="absolute bottom-2 text-[10px] text-neutral-500 transform -translate-x-1/2">
-                        {marker / 10 + 1}
-                      </span>
-                    </>
-                  )}
-                  {marker % 5 === 0 && marker % 10 !== 0 && (
-                    <span className="absolute bottom-0 w-[1px] h-1.5 bg-neutral-500" />
-                  )}
-                  {marker % 5 !== 0 && (
-                    <span className="absolute bottom-0 w-[1px] h-1 bg-neutral-500" />
-                  )}
-                </div>
-              );
-            })}
+                return (
+                  <div
+                    key={marker}
+                    className="absolute bottom-0"
+                    style={{ left: `${position}px` }}
+                  >
+                    {marker % 10 === 0 && (
+                      <>
+                        <span className="absolute bottom-0 w-[1px] h-2 bg-neutral-500" />
+                        <span className="absolute bottom-2 text-[10px] text-neutral-500 transform -translate-x-1/2">
+                          {marker / 10 + 1}
+                        </span>
+                      </>
+                    )}
+                    {marker % 5 === 0 && marker % 10 !== 0 && (
+                      <span className="absolute bottom-0 w-[1px] h-1.5 bg-neutral-500" />
+                    )}
+                    {marker % 5 !== 0 && (
+                      <span className="absolute bottom-0 w-[1px] h-1 bg-neutral-500" />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -134,6 +161,7 @@ function Marker({
   onMouseDown,
   onDoudleClick,
 }: MarkerProps) {
+  return <></>;
   return (
     <div
       className="absolute top-0 w-4 h-full cursor-ew-resize z-[5] group -ml-2"

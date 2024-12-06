@@ -77,7 +77,7 @@ export function Image() {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Image URL</DialogTitle>
+            <DialogTitle className="text-slate-700">Image URL</DialogTitle>
           </DialogHeader>
           <Input
             placeholder="Insert url"

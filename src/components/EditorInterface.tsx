@@ -18,16 +18,20 @@ import Highlight from "@tiptap/extension-highlight";
 import Link from "@tiptap/extension-link";
 import TextAlign from "@tiptap/extension-text-align";
 import { ImageResize } from "tiptap-extension-resize-image";
-import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import { useEditorStore } from "../store/useEditorState";
 
 import { Ruler } from "./Ruler";
 import { FontSize } from "../extensions/font-size";
 import { LineHeight } from "../extensions/line-height";
 import { PageBreak } from "../extensions/page-break";
+import { INCH_TO_PX } from "../lib/constants";
+import { LuLoader } from "react-icons/lu";
 
 export function EditorInterface() {
-  const { setEditor } = useEditorStore();
+  const {
+    setEditor,
+    editorOpts: { padding: pagePadding },
+  } = useEditorStore();
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -57,9 +61,13 @@ export function EditorInterface() {
     },
     editorProps: {
       attributes: {
-        style: "padding-left:56px; padding-right:56px;",
+        style: `padding-left:${
+          pagePadding.left * INCH_TO_PX
+        }px; padding-right:${pagePadding.right * INCH_TO_PX}px; padding-top:${
+          pagePadding.top * INCH_TO_PX
+        }px; padding-bottom:${pagePadding.bottom * INCH_TO_PX}px;`,
         class:
-          "focus:outline-none print:border-0 bg-white border border[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text",
+          "focus:outline-none print:border-0 bg-white border border[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] cursor-text",
       },
     },
     extensions: [
@@ -69,7 +77,6 @@ export function EditorInterface() {
       }),
       FontSize,
       PageBreak,
-      HorizontalRule,
       Superscript,
       Subscript,
       TextAlign.configure({
@@ -101,11 +108,21 @@ export function EditorInterface() {
   });
 
   return (
-    <div className="size-full overflow-x-auto bg-[#F9F8FD] px-0 print:p-0 print:bg-white print:overflow-visible">
-      <Ruler />
-      <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
-        <EditorContent editor={editor} />
-      </div>
-    </div>
+    <>
+      {editor === null ? (
+        <div className="h-screen flex flex-col items-center justify-center">
+          <LuLoader className="animate-spin size-8" />
+        </div>
+      ) : (
+        <>
+          <div className="size-full overflow-x-auto bg-[#F9F8FD] px-0 print:p-0 print:bg-white print:overflow-visible">
+            <Ruler />
+            <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
+              <EditorContent editor={editor} />
+            </div>
+          </div>
+        </>
+      )}
+    </>
   );
 }

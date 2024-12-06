@@ -16,7 +16,8 @@ export function FontFamily() {
       <DropdownMenuTrigger asChild>
         <button className="h-7 w-[120px] shrink-0 flex items-center justify-between gap-2 rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
           <span className="truncate">
-            {editor?.getAttributes("textStyle").fontFamily || "Arial"}
+            {editor?.getAttributes("textStyle").fontFamily?.replace(/"/g, "") ||
+              "Arial"}
           </span>
           <LuChevronDown size={16} />
         </button>

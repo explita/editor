@@ -3,6 +3,16 @@ import clsx, { ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export type ContentFormats = "text" | "json" | "html";
+export type PagePadding = {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+};
+
+export type EditorOpts = {
+  padding: PagePadding;
+};
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

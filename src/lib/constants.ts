@@ -7,7 +7,8 @@ import {
 
 export const PAGE_WIDTH = 816;
 export const MIN_SPACE = 100;
-export const DEFAULT_RULER_MARGIN = 56;
+export const DEFAULT_RULER_MARGIN = 0.5;
+export const INCH_TO_PX = 96;
 
 export const fonts = [
   { value: "Arial, Helvetica, sans-serif", label: "Arial" },

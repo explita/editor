@@ -31,13 +31,15 @@ import {
 import { TiExport } from "react-icons/ti";
 import { BsFiletypeJson } from "react-icons/bs";
 import { useEditorStore } from "../store/useEditorState";
+import { FiEdit } from "react-icons/fi";
 
 type MenubarProps = {
-  onSave?: (content: string | undefined) => void;
+  onCreateNew?: () => void;
+  onSave?: (content: string) => void;
   onClose?: () => void;
 };
 
-export function MenuBar({ onSave, onClose }: MenubarProps) {
+export function MenuBar({ onCreateNew, onSave, onClose }: MenubarProps) {
   const { editor } = useEditorStore();
 
   function insertTable(selected: number) {
@@ -87,13 +89,27 @@ export function MenuBar({ onSave, onClose }: MenubarProps) {
         <MenubarMenu>
           <MenubarTrigger className="menu-trigger">File</MenubarTrigger>
           <MenubarContent className="print:hidden">
+            <MenubarItem className="gap-2" onClick={onCreateNew}>
+              <FiEdit size={16} />
+              New Document
+            </MenubarItem>
             <MenubarSub>
               <MenubarSubTrigger className="gap-2">
                 <TiExport size={16} />
                 Export as
               </MenubarSubTrigger>
               <MenubarSubContent>
-                <MenubarItem className="gap-2" onClick={() => window.print()}>
+                <MenubarItem
+                  className="gap-2"
+                  onClick={() => {
+                    if (
+                      confirm(
+                        `To export the document as a PDF, click the 'Print' button below, on the menubar or toolbar. Then, in the print dialog box that appears, select 'Save as PDF' and click 'Save' button to save the document.`
+                      )
+                    )
+                      window.print();
+                  }}
+                >
                   <FaFilePdf size={16} />
                   PDF
                 </MenubarItem>
@@ -224,3 +240,9 @@ export function MenuBar({ onSave, onClose }: MenubarProps) {
     </div>
   );
 }
+
+MenuBar.defaultProps = {
+  onCreateNew: () => {},
+  onSave: () => {},
+  onClose: () => {},
+};

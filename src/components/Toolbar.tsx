@@ -34,7 +34,8 @@ import { FontSize } from "./FontSize";
 import { LineHeight } from "./LineHeight";
 
 type ToolbarProps = {
-  onSave?: (content: string | undefined) => void;
+  onSave?: (content: string) => void;
+  toolbarRight?: React.ReactNode | string | null | undefined;
 };
 
 type ToolbarButtonProps = {
@@ -52,6 +53,7 @@ function ToolbarButton({
 }: ToolbarButtonProps) {
   return (
     <button
+      type="button"
       onClick={onClick}
       className={cn(
         "text-sm h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/80",
@@ -64,7 +66,7 @@ function ToolbarButton({
   );
 }
 
-export function Toolbar({ onSave }: ToolbarProps) {
+export function Toolbar({ onSave, toolbarRight }: ToolbarProps) {
   const { editor } = useEditorStore();
 
   const sections: ToolbarButtonProps[][] = [
@@ -82,7 +84,7 @@ export function Toolbar({ onSave }: ToolbarProps) {
       {
         label: "Save",
         icon: LuSave,
-        onClick: () => onSave?.(editor?.getHTML()),
+        onClick: () => onSave?.(editor?.getHTML() || ""),
       },
       {
         label: "Print",
@@ -174,33 +176,41 @@ export function Toolbar({ onSave }: ToolbarProps) {
   ];
 
   return (
-    <div className="flex items-center gap-x-0.5 bg-[#F1F4F9] px-4 rounded-[0px] min-h-[40px] overflow-x-auto">
-      {sections[0].map((section) => (
-        <ToolbarButton key={section.label} {...section} />
-      ))}
-      <Separator className="h-6 bg-neutral-300" />
-      <FontFamily />
-      <Separator className="h-6 bg-neutral-300" />
-      <FontSize />
-      <Separator className="h-6 bg-neutral-300" />
-      <Heading />
-      <Separator className="h-6 bg-neutral-300" />
-      {sections[1].map((section) => (
-        <ToolbarButton key={section.label} {...section} />
-      ))}
-      <TextColor />
-      <HighlightColor />
-      <Separator className="h-6 bg-neutral-300" />
-      <Link />
-      <LinkUnset />
-      <Image />
-      <TextAlignment />
-      <LineHeight />
-      <List />
-      <Separator className="h-6 bg-neutral-300" />
-      {sections[2].map((section) => (
-        <ToolbarButton key={section.label} {...section} />
-      ))}
+    <div className="flex items-center justify-between gap-x-10 bg-[#F1F4F9] px-4">
+      <div className="flex items-center gap-x-0.5 rounded-[0px] min-h-[40px] overflow-x-auto">
+        {sections[0].map((section) => (
+          <ToolbarButton key={section.label} {...section} />
+        ))}
+        <Separator className="h-6 bg-neutral-300" />
+        <FontFamily />
+        <Separator className="h-6 bg-neutral-300" />
+        <FontSize />
+        <Separator className="h-6 bg-neutral-300" />
+        <Heading />
+        <Separator className="h-6 bg-neutral-300" />
+        {sections[1].map((section) => (
+          <ToolbarButton key={section.label} {...section} />
+        ))}
+        <TextColor />
+        <HighlightColor />
+        <Separator className="h-6 bg-neutral-300" />
+        <Link />
+        <LinkUnset />
+        <Image />
+        <TextAlignment />
+        <LineHeight />
+        <List />
+        <Separator className="h-6 bg-neutral-300" />
+        {sections[2].map((section) => (
+          <ToolbarButton key={section.label} {...section} />
+        ))}
+      </div>
+      <div>{toolbarRight}</div>
     </div>
   );
 }
+
+Toolbar.defaultProps = {
+  onSave: () => {},
+  toolbarRight: null,
+};
