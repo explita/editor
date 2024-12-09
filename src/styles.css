@@ -231,10 +231,6 @@
   width: 300px;
 }
 
-.w-\[816px\] {
-  width: 816px;
-}
-
 .w-full {
   width: 100%;
 }
@@ -428,11 +424,6 @@
 
 .border-input {
   border-color: hsl(var(--input));
-}
-
-.bg-\[\#F9F8FD\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 248 253 / var(--tw-bg-opacity, 1));
 }
 
 .bg-background {
@@ -810,7 +801,6 @@
 
 .explita-editor {
   display: flex;
-  height: 100vh;
   flex-direction: column;
   --tw-bg-opacity: 1;
   background-color: rgb(250 251 253 / var(--tw-bg-opacity, 1));
@@ -844,7 +834,6 @@
   z-index: 10;
   display: flex;
   flex-direction: column;
-  row-gap: 0.5rem;
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
   padding-top: 0px;
@@ -1116,7 +1105,6 @@
   margin-right: auto;
   display: flex;
   height: 1.5rem;
-  width: 816px;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -1179,8 +1167,6 @@
   margin-left: auto;
   margin-right: auto;
   display: flex;
-  min-height: 1054px;
-  width: 816px;
   cursor: text;
   flex-direction: column;
   border-width: 1px;
@@ -1197,6 +1183,7 @@
 
 @media print {
   .explita-editor .editor-content {
+    width: 100% !important;
     border-width: 0px;
   }
 }

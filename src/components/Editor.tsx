@@ -11,7 +11,7 @@ import { EditorOpts } from "../lib/utils";
 import { Footer } from "./Footer";
 
 type InitialContent = {
-  editorOpts?: EditorOpts | undefined;
+  editorOpts?: Partial<EditorOpts> | undefined;
   editorContent?: string | JSONContent;
 };
 
@@ -25,7 +25,7 @@ type EditorProps = {
   onClose?: () => void;
   onCreateNew?: () => void;
   toolbarRight?: React.ReactNode | string | null | undefined;
-  editorOpts?: EditorOpts;
+  editorOpts?: Partial<EditorOpts>;
   getEditorOpts?: (editorOpts: EditorOpts) => void;
   hideToolbar?: boolean;
   hideFooter?: boolean;
@@ -102,7 +102,13 @@ export function Editor({
   }, [editor?.getText(), editor?.getJSON(), editor?.getHTML(), getTextContent]);
 
   return (
-    <section className="explita-editor">
+    <section
+      className="explita-editor"
+      style={{
+        width: editorOptions.containerWidth,
+        height: editorOptions.containerHeight,
+      }}
+    >
       {!hideToolbar && (
         <header className="editor-header">
           {!hideToolbar && (

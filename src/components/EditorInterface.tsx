@@ -33,7 +33,7 @@ import { PopupMenu } from "./PopupMenu";
 export function EditorInterface() {
   const {
     setEditor,
-    editorOpts: { padding: pagePadding, zoomLevel },
+    editorOpts: { padding, zoomLevel, editorHeight, editorWidth },
   } = useEditorStore();
 
   const editor = useEditor({
@@ -64,12 +64,13 @@ export function EditorInterface() {
     },
     editorProps: {
       attributes: {
-        style: `padding-left:${pagePadding.left * INCH_TO_PX}px;
-        padding-right:${pagePadding.right * INCH_TO_PX}px; padding-top:${
-          pagePadding.top * INCH_TO_PX
+        style: `padding-left:${(padding.left || 0) * INCH_TO_PX}px;
+        padding-right:${(padding.right || 0) * INCH_TO_PX}px; padding-top:${
+          (padding.top || 0) * INCH_TO_PX
         }px;
-        padding-bottom:${pagePadding.bottom * INCH_TO_PX}px;
+        padding-bottom:${(padding.bottom || 0) * INCH_TO_PX}px;
         transform: scale(${zoomLevel}); transform-origin: top center;
+        width: ${editorWidth}; height: ${editorHeight};
         `,
         class: "editor-content",
       },
@@ -121,7 +122,7 @@ export function EditorInterface() {
         </div>
       ) : (
         <main className="editor-content-wrapper">
-          <Ruler />
+          <Ruler key={editorWidth} />
           <PopupMenu />
           <EditorContent editor={editor} />
         </main>

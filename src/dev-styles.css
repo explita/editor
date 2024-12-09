@@ -12,7 +12,7 @@
 }
 
 .explita-editor {
-  @apply flex flex-col h-screen bg-[#FAFBFD] font-['Arial'];
+  @apply flex flex-col bg-[#FAFBFD] font-['Arial'];
 }
 
 .editor-item-active {
@@ -28,7 +28,7 @@
 }
 
 .explita-editor .editor-header {
-  @apply flex flex-col pt-0 gap-y-2 sticky top-0 left-0 right-0 z-10 bg-white print:hidden text-slate-700;
+  @apply flex flex-col pt-0 sticky top-0 left-0 right-0 z-10 bg-white print:hidden text-slate-700;
 }
 
 .explita-editor .editor-header .toolbar-container {
@@ -105,7 +105,7 @@
 }
 
 .explita-editor .editor-content-wrapper .ruler-container-wrapper {
-  @apply w-[816px] mx-auto h-6 border-b border-gray-300 flex items-end relative select-none print:hidden;
+  @apply mx-auto h-6 border-b border-gray-300 flex items-end relative select-none print:hidden;
 }
 
 .explita-editor .editor-content-wrapper .ruler-container {
@@ -129,7 +129,7 @@
 }
 
 .explita-editor .editor-content {
-  @apply focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] cursor-text mx-auto;
+  @apply focus:outline-none bg-white border border-[#C7C7C7] flex flex-col cursor-text mx-auto print:!w-full print:border-0;
 }
 
 .explita-editor .menu-trigger {

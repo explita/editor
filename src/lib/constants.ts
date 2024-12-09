@@ -6,7 +6,7 @@ import {
 } from "react-icons/lu";
 
 export const PAGE_WIDTH = 816;
-export const PAGE_HEIGHT = 1132;
+export const PAGE_HEIGHT = 1095; //1132;
 export const MIN_SPACE = 100;
 export const DEFAULT_MARGIN = 0.5;
 export const INCH_TO_PX = 96;

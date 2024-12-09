@@ -51,7 +51,7 @@ function Chars() {
 }
 
 function Pages() {
-  const { editor } = useEditorStore();
+  const { editor, editorOpts } = useEditorStore();
 
   const [editorHeight, setEditorHeight] = useState(0);
 
@@ -66,7 +66,7 @@ function Pages() {
         setEditorHeight(height);
       }
     }
-  }, [editor?.getHTML()]);
+  }, [editor?.getHTML(), editorOpts.padding]);
 
   return (
     <>

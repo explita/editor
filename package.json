@@ -40,6 +40,10 @@
   ],
   "author": "explita",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/explita/editor.git"
+  },
   "description": "`@explita/editor` is a versatile, modern rich-text editor built on TipTap for seamless integration into React applications. It provides extensive customization options and advanced features to cater to diverse content creation needs.",
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.2",

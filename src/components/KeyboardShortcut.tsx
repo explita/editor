@@ -2,7 +2,6 @@ import { keyboardShortcuts } from "../lib/constants";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,

@@ -1,13 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { FaCaretDown } from "react-icons/fa";
-import {
-  DEFAULT_MARGIN,
-  INCH_TO_PX,
-  MIN_SPACE,
-  PAGE_WIDTH,
-} from "../lib/constants";
+import { useEffect, useRef, useState } from "react";
+import { DEFAULT_MARGIN, INCH_TO_PX, MIN_SPACE } from "../lib/constants";
 
 import { useEditorStore } from "../store/useEditorState";
 import { PagePadding } from "./PagePadding";
@@ -20,8 +14,15 @@ export function Ruler() {
   const [isDraggingLeft, setIsDraggingLeft] = useState(false);
   const [isDraggingRight, setIsDraggingRight] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [rulerWidth, setRulerWidth] = useState(0);
 
   const rulerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const editorContent = document.querySelector(".editor-content");
+
+    setRulerWidth(editorContent?.clientWidth || 0);
+  }, []);
 
   function handlePagePadding(section: string, value: number) {
     setEditorOpts((prev) => ({
@@ -44,22 +45,21 @@ export function Ruler() {
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     if ((isDraggingLeft || isDraggingRight) && rulerRef.current) {
       const container = rulerRef.current.querySelector(".ruler-container");
-
       if (container) {
         const containerRect = container.getBoundingClientRect();
         const relativeX = e.clientX - containerRect.left;
-        const rawPosition = Math.max(0, Math.min(PAGE_WIDTH, relativeX));
+        const rawPosition = Math.max(0, Math.min(rulerWidth, relativeX));
 
         if (isDraggingLeft) {
           const maxLeftPosition =
-            PAGE_WIDTH - editorOpts.padding.right - MIN_SPACE;
+            rulerWidth - (editorOpts.padding.right || 0) - MIN_SPACE;
           const newLeftPosition = Math.min(maxLeftPosition, rawPosition);
 
           handlePagePadding("left", newLeftPosition / INCH_TO_PX);
         } else if (isDraggingRight) {
           const maxRightPosition =
-            PAGE_WIDTH - (editorOpts.padding.left + MIN_SPACE);
-          const newRightPosition = Math.max(PAGE_WIDTH - rawPosition, 0);
+            rulerWidth - ((editorOpts.padding.left || 0) + MIN_SPACE);
+          const newRightPosition = Math.max(rulerWidth - rawPosition, 0);
           const contraintRightPosition = Math.min(
             maxRightPosition,
             newRightPosition
@@ -96,27 +96,31 @@ export function Ruler() {
         className="ruler-container-wrapper"
         style={{
           transform: `scale(${editorOpts.zoomLevel})`,
+          width: `${rulerWidth}px`,
         }}
       >
         <div className="ruler-container">
           <Marker
-            position={editorOpts.padding.left * INCH_TO_PX || 0}
+            position={(editorOpts.padding.left || 0) * INCH_TO_PX || 0}
             isLeft={true}
             isDragging={isDraggingLeft}
             onMouseDown={handleLeftMouseDown}
             onDoudleClick={handleLeftDoubleClick}
           />
           <Marker
-            position={editorOpts.padding.right * INCH_TO_PX || 0}
+            position={(editorOpts.padding.right || 0) * INCH_TO_PX || 0}
             isLeft={false}
             isDragging={isDraggingRight}
             onMouseDown={handleRightMouseDown}
             onDoudleClick={handleRightDoubleClick}
           />
           <div className="absolute inset-x-0 bottom-0 h-full">
-            <div className="relative h-full w-[816px]">
+            <div
+              className="relative h-full"
+              style={{ width: `${rulerWidth}px` }}
+            >
               {markers.map((marker) => {
-                const position = (marker * PAGE_WIDTH) / 82;
+                const position = (marker * rulerWidth) / 82;
 
                 return (
                   <div
