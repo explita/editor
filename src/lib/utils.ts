@@ -1,6 +1,7 @@
 import { type Editor } from "@tiptap/react";
 import clsx, { ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import mammoth from "mammoth";
 
 export type ContentFormats = "text" | "json" | "html";
 export type PagePadding = {
@@ -12,6 +13,7 @@ export type PagePadding = {
 
 export type EditorOpts = {
   padding: PagePadding;
+  zoomLevel: number;
 };
 
 export function cn(...inputs: ClassValue[]) {
@@ -40,4 +42,20 @@ export function onSave(editor: Editor | null, format: ContentFormats = "html") {
   if (format === "json") return editor.getJSON();
 
   if (format === "text") return editor.getText();
+}
+
+export async function parseWordDocument(file: File) {
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const { value: html, messages } = await mammoth.convertToHtml({
+      arrayBuffer,
+    });
+    console.log("Parsing messages:", messages); // Logs warnings about unsupported content
+    return html;
+  } catch (error) {
+    console.error("Error parsing Word document:", error);
+    throw new Error(
+      "Failed to parse the Word document, make sure you only import .docx files."
+    );
+  }
 }

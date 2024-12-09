@@ -57,10 +57,7 @@ export function Image() {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button
-            title="Add Image"
-            className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center gap-0 rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
-          >
+          <button title="Add Image" className="toolbar-button">
             <LuImage size={16} />
           </button>
         </DropdownMenuTrigger>

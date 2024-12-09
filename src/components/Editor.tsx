@@ -4,17 +4,20 @@ import { useEffect } from "react";
 import { JSONContent } from "@tiptap/react";
 import { EditorInterface } from "./EditorInterface";
 import { Toolbar } from "./Toolbar";
-import { MenuBar } from "./Menubar";
 
 import { useEditorStore } from "../store/useEditorState";
 import "../styles.css";
-import { PagePadding } from "../lib/utils";
+import { EditorOpts } from "../lib/utils";
+import { Footer } from "./Footer";
 
-type EditorOpts = { padding: PagePadding };
+type InitialContent = {
+  editorOpts?: EditorOpts | undefined;
+  editorContent?: string | JSONContent;
+};
 
 type EditorProps = {
   readOnly?: boolean;
-  initialContent?: string | JSONContent | undefined;
+  initialContent?: InitialContent | string;
   getTextContent?: (text: string) => void;
   getJSONContent?: (json: JSONContent) => void;
   getHTMLContent?: (html: string) => void;
@@ -25,7 +28,7 @@ type EditorProps = {
   editorOpts?: EditorOpts;
   getEditorOpts?: (editorOpts: EditorOpts) => void;
   hideToolbar?: boolean;
-  hideMenubar?: boolean;
+  hideFooter?: boolean;
 };
 
 export function Editor({
@@ -41,7 +44,7 @@ export function Editor({
   editorOpts,
   getEditorOpts,
   hideToolbar = false,
-  hideMenubar = false,
+  hideFooter = false,
 }: EditorProps) {
   const { editor, editorOpts: editorOptions, setEditorOpts } = useEditorStore();
 
@@ -55,7 +58,7 @@ export function Editor({
     if (editor && getEditorOpts) {
       getEditorOpts(editorOptions);
     }
-  }, [editorOptions, getEditorOpts]);
+  }, [editorOptions, getEditorOpts, editor?.getHTML()]);
 
   useEffect(() => {
     if (editor && editorOpts) {
@@ -65,7 +68,19 @@ export function Editor({
 
   useEffect(() => {
     if (editor && initialContent) {
-      editor.commands.setContent(initialContent);
+      if (typeof initialContent === "object") {
+        const { editorContent, editorOpts } = initialContent;
+
+        if (editorOpts && Object.keys(editorOpts).length > 0) {
+          setEditorOpts(editorOpts);
+        }
+
+        if (editorContent) {
+          editor.commands.setContent(editorContent);
+        }
+      } else if (typeof initialContent === "string") {
+        editor.commands.setContent(initialContent);
+      }
     }
   }, [editor, initialContent]);
 
@@ -75,7 +90,10 @@ export function Editor({
     }
 
     if (getJSONContent) {
-      getJSONContent(editor?.getJSON() || {});
+      getJSONContent({
+        editorOpts: editorOptions,
+        editorContent: editor?.getJSON(),
+      });
     }
 
     if (getHTMLContent) {
@@ -84,25 +102,24 @@ export function Editor({
   }, [editor?.getText(), editor?.getJSON(), editor?.getHTML(), getTextContent]);
 
   return (
-    <div className="min-h-screen bg-[#FAFBFD]">
-      {(!hideMenubar || !hideToolbar) && (
-        <div className="flex flex-col pt-2 gap-y-2 sticky top-0 left-0 right-0 z-10 bg-[#FAFBFD] print:hidden text-slate-700">
-          {!hideMenubar && (
-            <MenuBar
+    <section className="explita-editor">
+      {!hideToolbar && (
+        <header className="editor-header">
+          {!hideToolbar && (
+            <Toolbar
+              onCreateNew={onCreateNew}
               onSave={onSave}
               onClose={onClose}
-              onCreateNew={onCreateNew}
+              toolbarRight={toolbarRight}
             />
           )}
-          {!hideToolbar && (
-            <Toolbar onSave={onSave} toolbarRight={toolbarRight} />
-          )}
-        </div>
+        </header>
       )}
-      <div className="print:pt-0">
-        <EditorInterface />
-      </div>
-    </div>
+
+      <EditorInterface />
+
+      {!hideFooter && <Footer />}
+    </section>
   );
 }
 
@@ -116,10 +133,8 @@ Editor.defaultProps = {
   onClose: () => {},
   onSave: () => {},
   onCreateNew: () => {},
-  getEditorOpts: () => {
-    return { padding: { top: 0, bottom: 0, left: 0, right: 0 } };
-  },
+  getEditorOpts: () => {},
   editorOpts: { padding: { top: 0, bottom: 0, left: 0, right: 0 } },
   hideToolbar: false,
-  hideMenubar: false,
+  hideFooter: false,
 };

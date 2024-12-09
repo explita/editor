@@ -32,9 +32,17 @@ import { TextAlignment } from "./TextAlignment";
 import { List } from "./List";
 import { FontSize } from "./FontSize";
 import { LineHeight } from "./LineHeight";
+import { TablePopupMenu } from "./TablePopUpMenu";
+import { Table } from "./Table";
+import { RxTable } from "react-icons/rx";
+import { Menu } from "./Menu";
+import { WordImport } from "./WorldImport";
 
 type ToolbarProps = {
+  onCreateNew?: () => void;
   onSave?: (content: string) => void;
+  onClose?: () => void;
+
   toolbarRight?: React.ReactNode | string | null | undefined;
 };
 
@@ -55,10 +63,7 @@ function ToolbarButton({
     <button
       type="button"
       onClick={onClick}
-      className={cn(
-        "text-sm h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/80",
-        isActive && "bg-neutral-200/80"
-      )}
+      className={cn("toolbar-button", isActive && "editor-item-active")}
       title={label}
     >
       <Icon size={16} />
@@ -66,7 +71,12 @@ function ToolbarButton({
   );
 }
 
-export function Toolbar({ onSave, toolbarRight }: ToolbarProps) {
+export function Toolbar({
+  onCreateNew,
+  onSave,
+  onClose,
+  toolbarRight,
+}: ToolbarProps) {
   const { editor } = useEditorStore();
 
   const sections: ToolbarButtonProps[][] = [
@@ -176,37 +186,48 @@ export function Toolbar({ onSave, toolbarRight }: ToolbarProps) {
   ];
 
   return (
-    <div className="flex items-center justify-between gap-x-10 bg-[#F1F4F9] px-4">
-      <div className="flex items-center gap-x-0.5 rounded-[0px] min-h-[40px] overflow-x-auto">
-        {sections[0].map((section) => (
-          <ToolbarButton key={section.label} {...section} />
-        ))}
-        <Separator className="h-6 bg-neutral-300" />
-        <FontFamily />
-        <Separator className="h-6 bg-neutral-300" />
-        <FontSize />
-        <Separator className="h-6 bg-neutral-300" />
-        <Heading />
-        <Separator className="h-6 bg-neutral-300" />
-        {sections[1].map((section) => (
-          <ToolbarButton key={section.label} {...section} />
-        ))}
-        <TextColor />
-        <HighlightColor />
-        <Separator className="h-6 bg-neutral-300" />
-        <Link />
-        <LinkUnset />
-        <Image />
-        <TextAlignment />
-        <LineHeight />
-        <List />
-        <Separator className="h-6 bg-neutral-300" />
-        {sections[2].map((section) => (
-          <ToolbarButton key={section.label} {...section} />
-        ))}
+    <>
+      <div className="toolbar-container">
+        <div className="toolbar-content">
+          <Menu onCreateNew={onCreateNew} onClose={onClose} />
+          {sections[0].map((section) => (
+            <ToolbarButton key={section.label} {...section} />
+          ))}
+          <Separator className="separator" />
+          <FontFamily />
+          <Separator className="separator" />
+          <FontSize />
+          <Separator className="separator" />
+          <Heading />
+          <Separator className="separator" />
+          {sections[1].map((section) => (
+            <ToolbarButton key={section.label} {...section} />
+          ))}
+          <TextColor />
+          <HighlightColor />
+          <Separator className="separator" />
+          <Link />
+          <LinkUnset />
+          <Image />
+          <TextAlignment />
+          <LineHeight />
+          <List />
+          <Table isToolbar>
+            <button title="Insert Table" className="toolbar-button">
+              <RxTable size={16} />
+            </button>
+          </Table>
+          <Separator className="separator" />
+          {sections[2].map((section) => (
+            <ToolbarButton key={section.label} {...section} />
+          ))}
+          <Separator className="separator" />
+          <WordImport />
+        </div>
+        {toolbarRight}
       </div>
-      <div>{toolbarRight}</div>
-    </div>
+      {editor?.isActive("table") && <TablePopupMenu />}
+    </>
   );
 }
 

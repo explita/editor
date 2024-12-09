@@ -25,12 +25,12 @@ export function Heading() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="h-7 w-[100px] shrink-0 flex items-center justify-between gap-2 rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
+        <button className="dropdown-trigger-button">
           <span className="truncate">{getCurrentHeading()}</span>
           <LuChevronDown size={16} />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+      <DropdownMenuContent className="editor-dropdown-content">
         {headings.map(({ label, value, fontSize }) => {
           return (
             <button
@@ -47,10 +47,10 @@ export function Heading() {
                 }
               }}
               className={cn(
-                "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
+                "editor-dropdown-menu-button",
                 (value === 0 && !editor?.isActive("heading")) ||
                   (editor?.isActive("heading", { level: value }) &&
-                    "bg-neutral-200/80")
+                    "editor-item-active")
               )}
               style={{ fontSize }}
             >

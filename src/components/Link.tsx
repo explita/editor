@@ -31,10 +31,7 @@ export function Link() {
       }}
     >
       <DropdownMenuTrigger asChild>
-        <button
-          title="Add Link"
-          className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center gap-0 rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
-        >
+        <button title="Add Link" className="toolbar-button">
           <LuLink2 size={16} />
         </button>
       </DropdownMenuTrigger>

@@ -81,6 +81,10 @@ export default App;
 
 <br/>
 
+**Note**: If you are using the `getJSONContent` output as `initialContent`, there's no need to explicitly pass `editorOpts`. We recommend saving editor content as JSON (`getJSONContent`) whenever possible for better flexibility and consistency.
+
+<br/>
+
 **Props**
 | **Prop Name** | **Type** | **Description** | **Default** |
 |---------------------|-------------------------------------------|---------------------------------------------------------------------|-----------------|
@@ -96,7 +100,7 @@ export default App;
 | `readOnly` | `boolean` | If true, the editor is non-editable. | `false` |
 | `toolbarRight` | `React.ReactNode \| string \| null \| undefined` | Custom elements to display on the right side of the toolbar. | `undefined` |
 | `hideToolbar` | `boolean` | If true, hides the editor toolbar. | `false` |
-| `hideMenubar` | `boolean` | If true, hides the editor menu bar. | `false` |
+| `hideFooter` | `boolean` | If true, hides the footer. | `false` |
 
 <br/>
 
@@ -104,11 +108,9 @@ export default App;
 
 1.  **_Retain Page Margins/Padding:_**
 
-- Retrieve editor options using the getEditorOpts callback.
-- Save these options and pass them back to the Editor component alongside the content (if there’s initialContent). - Do this only when the Editor is initialized, avoiding unnecessary updates on every keypress.
-**Note**: you can double-click the ruler anytime to modify page paddings.
-
-  <br/>
+    - Retrieve editor options using the getEditorOpts callback.
+    - Save these options and pass them back to the Editor component alongside the content (if there’s initialContent). Do this only when the Editor is initialized, avoiding unnecessary updates on every keypress.
+      <br/>**Note**: you can double-click the ruler anytime to modify page paddings.
 
 2.  **_Custom Toolbar:_**
     Use toolbarRight to inject custom components like buttons or additional actions.

@@ -1,8 +1,8 @@
-@tailwind base;
-@tailwind components;
+/* @tailwind base; */
+/* @tailwind components; */
 @tailwind utilities;
 
-@layer base {
+@layer utilities {
   @font-face {
     font-family: "Agency FB Bold";
     font-style: normal;
@@ -11,15 +11,144 @@
   }
 }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
+.explita-editor {
+  @apply flex flex-col h-screen bg-[#FAFBFD] font-['Arial'];
 }
 
-.menu-trigger {
+.editor-item-active {
+  @apply bg-neutral-200/80;
+}
+
+.explita-editor .editor-header .toolbar-content .separator {
+  @apply !h-6 bg-neutral-300 shrink-0 bg-border;
+}
+
+.explita-editor .flex-center {
+  @apply flex items-center gap-x-0.5;
+}
+
+.explita-editor .editor-header {
+  @apply flex flex-col pt-0 gap-y-2 sticky top-0 left-0 right-0 z-10 bg-white print:hidden text-slate-700;
+}
+
+.explita-editor .editor-header .toolbar-container {
+  @apply flex items-center justify-between gap-x-10 bg-[#F1F4F9] px-4;
+}
+
+.explita-editor .editor-header .toolbar-content {
+  @apply flex items-center gap-x-0.5 rounded-[0px] min-h-[40px] overflow-x-auto;
+}
+
+.explita-editor .editor-header .toolbar-button,
+.tippy-box .toolbar-button {
+  @apply size-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80;
+}
+
+.tippy-box .toolbar-button {
+  @apply size-5;
+}
+
+.tippy-box .bubble-menu {
+  @apply flex gap-2 bg-white shadow-md rounded p-1;
+}
+
+.explita-editor .editor-header .font-size-button {
+  @apply h-7 w-10 text-sm text-center border border-neutral-400 rounded-sm bg-transparent cursor-text;
+}
+
+.explita-editor .editor-header .font-size-input {
+  @apply h-7 w-10 text-sm text-center border border-neutral-400 rounded-sm bg-transparent focus:outline-none focus:ring-0;
+}
+
+.explita-editor .editor-header .dropdown-trigger-button {
+  @apply h-7 w-[120px] shrink-0 flex items-center justify-between gap-2 rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm;
+}
+
+.editor-dropdown-content {
+  @apply p-1 flex flex-col gap-y-1;
+}
+
+.editor-dropdown-menu-button {
+  @apply flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80;
+}
+
+.editor-dropdown-menu-button span {
+  @apply text-sm;
+}
+
+.editor-keyboard-shortcuts-wrapper {
+  @apply flex flex-col gap-y-1 divide-y overflow-y-auto mt-3 max-h-[calc(100vh-70px)];
+}
+
+.editor-keyboard-shortcuts-wrapper .content {
+  @apply flex items-center justify-between px-2 pt-1 text-xs;
+}
+
+.editor-keyboard-shortcuts-wrapper .content span:nth-child(2) {
+  @apply text-muted-foreground mr-1 flex gap-x-1;
+}
+
+.editor-keyboard-shortcuts-wrapper .content span:nth-child(2) kbd {
+  @apply bg-gray-200/80 rounded px-1 py-0.5 group-hover:bg-gray-200 group-hover:shadow group-hover:shadow-black;
+}
+
+.explita-editor .editor-loader {
+  @apply h-[calc(100vh-70px)] flex flex-col items-center justify-center;
+}
+
+.explita-editor .editor-loader svg {
+  @apply animate-spin size-8;
+}
+
+.explita-editor .editor-content-wrapper {
+  @apply flex-1 py-2 space-y-2 print:py-0 mx-auto print:w-full print:min-w-0 print:overflow-visible print:scale-100 w-full overflow-y-auto grid grid-cols-1;
+}
+
+.explita-editor .editor-content-wrapper .ruler-container-wrapper {
+  @apply w-[816px] mx-auto h-6 border-b border-gray-300 flex items-end relative select-none print:hidden;
+}
+
+.explita-editor .editor-content-wrapper .ruler-container {
+  @apply w-full h-full relative;
+}
+
+.explita-editor .editor-content-wrapper .ruler-container .mark-10 {
+  @apply absolute bottom-0 w-[1px] h-2 bg-neutral-500;
+}
+
+.explita-editor .editor-content-wrapper .ruler-container .mark-5-10 {
+  @apply absolute bottom-0 w-[1px] h-1.5 bg-neutral-500;
+}
+
+.explita-editor .editor-content-wrapper .ruler-container .mark-5 {
+  @apply absolute bottom-0 w-[1px] h-1 bg-neutral-500;
+}
+
+.explita-editor .editor-content-wrapper .ruler-container .digit {
+  @apply absolute bottom-2 text-[10px] text-neutral-500 transform -translate-x-1/2;
+}
+
+.explita-editor .editor-content {
+  @apply focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] cursor-text mx-auto;
+}
+
+.explita-editor .menu-trigger {
   @apply text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto;
 }
 
-.tiptap {
+.explita-editor .table-popup-menu {
+  @apply flex gap-3 rounded-br-md rounded-bl-md shadow-sm bg-white p-2 flex-wrap;
+}
+
+.explita-editor .table-popup-menu button {
+  @apply flex items-center gap-1 text-xs text-black hover:bg-neutral-200/60 px-2 py-1 rounded disabled:text-black/40;
+}
+
+.explita-editor footer {
+  @apply flex items-center justify-between bottom-0 bg-slate-100 border-t border-slate-300 px-5 py-0.5 text-xs select-none print:hidden;
+}
+
+.explita-editor .tiptap {
   @apply text-black;
 
   div[data-page-break] {
@@ -254,7 +383,7 @@ body {
   }
 }
 
-@layer base {
+@layer utilities {
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
@@ -307,14 +436,5 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }

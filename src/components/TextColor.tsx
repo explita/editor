@@ -20,11 +20,8 @@ export function TextColor() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button
-          title="Text Color"
-          className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center gap-0 rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
-        >
-          <span className="text-sm">A</span>
+        <button title="Text Color" className="toolbar-button">
+          <span>A</span>
           <div
             className="h-0.5 w-full"
             style={{ backgroundColor: currentColor }}

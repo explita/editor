@@ -21,10 +21,7 @@ export function HighlightColor() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button
-          title="Highlight Color"
-          className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center gap-0 rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
-        >
+        <button title="Highlight Color" className="toolbar-button">
           <LuHighlighter size={16} />
         </button>
       </DropdownMenuTrigger>

@@ -17,7 +17,7 @@ export function LinkUnset() {
   return (
     <button
       title="Remove Link"
-      className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center gap-0 rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm disabled:text-gray-400"
+      className="toolbar-button"
       onClick={onClick}
       disabled={currentLink === ""}
     >

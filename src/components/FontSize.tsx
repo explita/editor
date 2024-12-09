@@ -8,7 +8,7 @@ export function FontSize() {
   const { editor } = useEditorStore();
 
   const currentFontSize = editor?.getAttributes("textStyle").fontSize
-    ? editor?.getAttributes("textStyle").fontSize.replace("px", "")
+    ? editor?.getAttributes("textStyle").fontSize.replace(/[px|pt|em|rem]/g, "")
     : "16";
 
   const [fontSize, setFontSize] = useState(currentFontSize);
@@ -54,24 +54,21 @@ export function FontSize() {
   }
 
   return (
-    <div className="flex items-center gap-x-0.5">
-      <button
-        className="h-7 w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80"
-        onClick={decrement}
-      >
+    <div className="flex-center">
+      <button className="toolbar-button" onClick={decrement}>
         <LuMinus size={16} />
       </button>
       {isEditing ? (
         <input
           value={inputValue}
-          className="h-7 w-10 text-sm text-center border border-neutral-400 rounded-sm bg-transparent focus:outline-none focus:ring-0"
+          className="font-size-input"
           onChange={handleInputChange}
           onBlur={handleInputBlur}
           onKeyDown={handleKeyDown}
         />
       ) : (
         <button
-          className="h-7 w-10 text-sm text-center border border-neutral-400 rounded-sm bg-transparent cursor-text"
+          className="font-size-button"
           onClick={() => {
             setIsEditing(true);
             setFontSize(currentFontSize);
@@ -80,10 +77,7 @@ export function FontSize() {
           {currentFontSize}
         </button>
       )}
-      <button
-        className="h-7 w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80"
-        onClick={increment}
-      >
+      <button className="toolbar-button" onClick={increment}>
         <LuPlus size={16} />
       </button>
     </div>

@@ -1,7 +1,7 @@
 import { type Editor } from "@tiptap/react";
 import { create } from "zustand";
 import { EditorOpts } from "../lib/utils";
-import { DEFAULT_RULER_MARGIN } from "../lib/constants";
+import { DEFAULT_MARGIN } from "../lib/constants";
 
 type EditorState = {
   editor: Editor | null;
@@ -17,11 +17,12 @@ export const useEditorStore = create<EditorState>((set) => ({
   setEditor: (editor: Editor | null) => set({ editor }),
   editorOpts: {
     padding: {
-      top: DEFAULT_RULER_MARGIN,
-      right: DEFAULT_RULER_MARGIN,
-      bottom: DEFAULT_RULER_MARGIN,
-      left: DEFAULT_RULER_MARGIN,
+      top: DEFAULT_MARGIN,
+      right: DEFAULT_MARGIN,
+      bottom: DEFAULT_MARGIN,
+      left: DEFAULT_MARGIN,
     },
+    zoomLevel: 1,
   },
   setEditorOpts: (opts: EditorOpts | ((prev: EditorOpts) => EditorOpts)) =>
     set((state) => ({

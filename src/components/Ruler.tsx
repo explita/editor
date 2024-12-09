@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import {
-  DEFAULT_RULER_MARGIN,
+  DEFAULT_MARGIN,
   INCH_TO_PX,
   MIN_SPACE,
   PAGE_WIDTH,
@@ -43,7 +43,7 @@ export function Ruler() {
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     if ((isDraggingLeft || isDraggingRight) && rulerRef.current) {
-      const container = rulerRef.current.querySelector("#ruler-container");
+      const container = rulerRef.current.querySelector(".ruler-container");
 
       if (container) {
         const containerRect = container.getBoundingClientRect();
@@ -77,11 +77,11 @@ export function Ruler() {
   }
 
   function handleLeftDoubleClick() {
-    handlePagePadding("left", DEFAULT_RULER_MARGIN * INCH_TO_PX);
+    handlePagePadding("left", DEFAULT_MARGIN * INCH_TO_PX);
   }
 
   function handleRightDoubleClick() {
-    handlePagePadding("right", DEFAULT_RULER_MARGIN * INCH_TO_PX);
+    handlePagePadding("right", DEFAULT_MARGIN * INCH_TO_PX);
   }
 
   return (
@@ -93,9 +93,12 @@ export function Ruler() {
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         onDoubleClick={() => setIsDialogOpen(true)}
-        className="w-[816px] mx-auto h-6 border-b border-gray-300 flex items-end relative select-none print:hidden"
+        className="ruler-container-wrapper"
+        style={{
+          transform: `scale(${editorOpts.zoomLevel})`,
+        }}
       >
-        <div id="ruler-container" className="w-full h-full relative">
+        <div className="ruler-container">
           <Marker
             position={editorOpts.padding.left * INCH_TO_PX || 0}
             isLeft={true}
@@ -123,18 +126,14 @@ export function Ruler() {
                   >
                     {marker % 10 === 0 && (
                       <>
-                        <span className="absolute bottom-0 w-[1px] h-2 bg-neutral-500" />
-                        <span className="absolute bottom-2 text-[10px] text-neutral-500 transform -translate-x-1/2">
-                          {marker / 10 + 1}
-                        </span>
+                        <span className="mark-10" />
+                        <span className="digit">{marker / 10 + 1}</span>
                       </>
                     )}
                     {marker % 5 === 0 && marker % 10 !== 0 && (
-                      <span className="absolute bottom-0 w-[1px] h-1.5 bg-neutral-500" />
+                      <span className="mark-5-10" />
                     )}
-                    {marker % 5 !== 0 && (
-                      <span className="absolute bottom-0 w-[1px] h-1 bg-neutral-500" />
-                    )}
+                    {marker % 5 !== 0 && <span className="mark-5" />}
                   </div>
                 );
               })}
@@ -162,20 +161,20 @@ function Marker({
   onDoudleClick,
 }: MarkerProps) {
   return <></>;
-  return (
-    <div
-      className="absolute top-0 w-4 h-full cursor-ew-resize z-[5] group -ml-2"
-      style={{ [isLeft ? "left" : "right"]: `${position}px` }}
-      onMouseDown={onMouseDown}
-      onDoubleClick={onDoudleClick}
-    >
-      <FaCaretDown className="absolute left-1/2 top-0 h-full fill-blue-500 transform -translate-x-1/2" />
-      <div
-        className="absolute left-1/2 top-4 transform -translate-x-1/2 transition-opacity duration-150 !h-screen w-[1px] bg-blue-500 scale-x-50"
-        style={{
-          display: isDragging ? "block" : "none",
-        }}
-      />
-    </div>
-  );
+  // return (
+  //   <div
+  //     className="absolute top-0 w-4 h-full cursor-ew-resize z-[5] group -ml-2"
+  //     style={{ [isLeft ? "left" : "right"]: `${position}px` }}
+  //     onMouseDown={onMouseDown}
+  //     onDoubleClick={onDoudleClick}
+  //   >
+  //     <FaCaretDown className="absolute left-1/2 top-0 h-full fill-blue-500 transform -translate-x-1/2" />
+  //     <div
+  //       className="absolute left-1/2 top-4 transform -translate-x-1/2 transition-opacity duration-150 !h-screen w-[1px] bg-blue-500 scale-x-50"
+  //       style={{
+  //         display: isDragging ? "block" : "none",
+  //       }}
+  //     />
+  //   </div>
+  // );
 }

@@ -17,6 +17,7 @@ import { Color } from "@tiptap/extension-color";
 import Highlight from "@tiptap/extension-highlight";
 import Link from "@tiptap/extension-link";
 import TextAlign from "@tiptap/extension-text-align";
+import BubbleMenu from "@tiptap/extension-bubble-menu";
 import { ImageResize } from "tiptap-extension-resize-image";
 import { useEditorStore } from "../store/useEditorState";
 
@@ -26,11 +27,13 @@ import { LineHeight } from "../extensions/line-height";
 import { PageBreak } from "../extensions/page-break";
 import { INCH_TO_PX } from "../lib/constants";
 import { LuLoader } from "react-icons/lu";
+import CharacterCount from "@tiptap/extension-character-count";
+import { PopupMenu } from "./PopupMenu";
 
 export function EditorInterface() {
   const {
     setEditor,
-    editorOpts: { padding: pagePadding },
+    editorOpts: { padding: pagePadding, zoomLevel },
   } = useEditorStore();
 
   const editor = useEditor({
@@ -61,13 +64,14 @@ export function EditorInterface() {
     },
     editorProps: {
       attributes: {
-        style: `padding-left:${
-          pagePadding.left * INCH_TO_PX
-        }px; padding-right:${pagePadding.right * INCH_TO_PX}px; padding-top:${
+        style: `padding-left:${pagePadding.left * INCH_TO_PX}px;
+        padding-right:${pagePadding.right * INCH_TO_PX}px; padding-top:${
           pagePadding.top * INCH_TO_PX
-        }px; padding-bottom:${pagePadding.bottom * INCH_TO_PX}px;`,
-        class:
-          "focus:outline-none print:border-0 bg-white border border[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] cursor-text",
+        }px;
+        padding-bottom:${pagePadding.bottom * INCH_TO_PX}px;
+        transform: scale(${zoomLevel}); transform-origin: top center;
+        `,
+        class: "editor-content",
       },
     },
     extensions: [
@@ -77,6 +81,8 @@ export function EditorInterface() {
       }),
       FontSize,
       PageBreak,
+      CharacterCount,
+      BubbleMenu,
       Superscript,
       Subscript,
       TextAlign.configure({
@@ -110,18 +116,15 @@ export function EditorInterface() {
   return (
     <>
       {editor === null ? (
-        <div className="h-screen flex flex-col items-center justify-center">
-          <LuLoader className="animate-spin size-8" />
+        <div className="editor-loader">
+          <LuLoader />
         </div>
       ) : (
-        <>
-          <div className="size-full overflow-x-auto bg-[#F9F8FD] px-0 print:p-0 print:bg-white print:overflow-visible">
-            <Ruler />
-            <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
-              <EditorContent editor={editor} />
-            </div>
-          </div>
-        </>
+        <main className="editor-content-wrapper">
+          <Ruler />
+          <PopupMenu />
+          <EditorContent editor={editor} />
+        </main>
       )}
     </>
   );
