@@ -1068,10 +1068,8 @@
 .explita-editor .editor-content-wrapper {
   margin-left: auto;
   margin-right: auto;
-  display: grid;
   width: 100%;
   flex: 1 1 0%;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
 .explita-editor .editor-content-wrapper > :not([hidden]) ~ :not([hidden]) {

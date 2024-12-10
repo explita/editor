@@ -70,7 +70,7 @@ export function EditorInterface() {
         }px;
         padding-bottom:${(padding.bottom || 0) * INCH_TO_PX}px;
         transform: scale(${zoomLevel}); transform-origin: top center;
-        width: ${editorWidth}; height: ${editorHeight};
+        width: ${editorWidth}; min-height: ${editorHeight};
         `,
         class: "editor-content",
       },
