@@ -14,9 +14,11 @@ export function KeyboardShortcut() {
       <SheetTrigger title="Open Keyboard Shortcuts">
         <MdKeyboardHide size={16} />
       </SheetTrigger>
-      <SheetContent className="p-0">
+      <SheetContent className="explitaeditor:p-0">
         <SheetHeader>
-          <SheetTitle className="p-3">Keyboard Shortcuts</SheetTitle>
+          <SheetTitle className="explitaeditor:p-3">
+            Keyboard Shortcuts
+          </SheetTitle>
         </SheetHeader>
 
         <div className="editor-keyboard-shortcuts-wrapper">

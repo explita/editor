@@ -42,8 +42,9 @@ export function Table({
           setRows(0), setCols(0);
         }}
         align={isToolbar ? "center" : "start"}
+        className="editor-dropdown-content"
       >
-        <div className="p-2.5 grid grid-cols-8 items-center justify-center gap-2">
+        <div className="explitaeditor:p-2.5 explitaeditor:grid explitaeditor:grid-cols-8 explitaeditor:items-center explitaeditor:justify-center explitaeditor:gap-2">
           {Array.from({ length: 8 }).map((_, row) =>
             Array.from({ length: 8 }).map((_, col) => {
               const currentRow = row + 1;
@@ -51,10 +52,10 @@ export function Table({
               return (
                 <button
                   key={`${currentRow}-${currentCol}`}
-                  className={`size-5 border ${
+                  className={`explitaeditor:size-5 explitaeditor:border ${
                     currentRow <= rows && currentCol <= cols
-                      ? "border-blue-400"
-                      : "border-gray-200"
+                      ? "explitaeditor:border-blue-400"
+                      : "explitaeditor:border-gray-200"
                   }`}
                   onMouseEnter={() => onMouseEnter(currentRow, currentCol)}
                   onClick={onClick}
@@ -63,7 +64,7 @@ export function Table({
             })
           )}
         </div>
-        <div className="m-2 text-sm">
+        <div className="explitaeditor:m-2 explitaeditor:text-sm explitaeditor:text-neutral-700">
           <span>
             Selected: {rows} x {cols}
           </span>

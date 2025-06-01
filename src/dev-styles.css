@@ -1,6 +1,47 @@
 /* @tailwind base; */
 /* @tailwind components; */
-@tailwind utilities;
+/* @tailwind utilities; */
+@import "tailwindcss" prefix(explitaeditor);
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  /* --color-input: var(--input); */
+  /* --color-border: var(--border); */
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
 
 @layer utilities {
   @font-face {
@@ -12,148 +53,148 @@
 }
 
 .explita-editor {
-  @apply flex flex-col bg-[#FAFBFD] font-['Arial'] data-[mini=true]:border data-[mini=true]:border-[#C7C7C7];
+  @apply explitaeditor:flex explitaeditor:flex-col explitaeditor:bg-[#FAFBFD] explitaeditor:font-['Arial'] explitaeditor:data-[mini=true]:border explitaeditor:data-[mini=true]:border-[#C7C7C7];
 }
 
 .editor-item-active {
-  @apply bg-neutral-200/80;
+  @apply explitaeditor:bg-neutral-200/80;
 }
 
 .explita-editor .editor-header .toolbar-content .separator {
-  @apply !h-6 bg-neutral-300 shrink-0 bg-border;
+  @apply explitaeditor:!h-6 explitaeditor:bg-neutral-300 explitaeditor:shrink-0 explitaeditor:bg-neutral-300;
 }
 
 .explita-editor .flex-center {
-  @apply flex items-center gap-x-0.5;
+  @apply explitaeditor:flex explitaeditor:items-center explitaeditor:gap-x-0.5;
 }
 
 .explita-editor .editor-header {
-  @apply flex flex-col pt-0 sticky top-0 left-0 right-0 z-10 bg-white print:hidden text-slate-700 data-[mini=true]:border-b data-[mini=true]:border-[#C7C7C7];
+  @apply explitaeditor:flex explitaeditor:flex-col explitaeditor:pt-0 explitaeditor:sticky explitaeditor:top-0 explitaeditor:left-0 explitaeditor:right-0 explitaeditor:z-10 explitaeditor:bg-white explitaeditor:print:hidden explitaeditor:text-slate-700 explitaeditor:data-[mini=true]:border-b explitaeditor:data-[mini=true]:border-[#C7C7C7];
 }
 
 .explita-editor .editor-header .toolbar-container {
-  @apply flex items-center justify-between gap-x-10 bg-[#F1F4F9];
+  @apply explitaeditor:flex explitaeditor:items-center explitaeditor:justify-between explitaeditor:gap-x-10 explitaeditor:bg-[#F1F4F9];
 }
 
 .explita-editor .editor-header .toolbar-content {
-  @apply flex items-center gap-x-0.5 rounded-[0px] min-h-[40px] data-[mini=false]:overflow-x-auto data-[mini=true]:flex-wrap data-[mini=true]:gap-y-1 data-[mini=true]:p-1;
+  @apply explitaeditor:flex explitaeditor:items-center explitaeditor:gap-x-0.5 explitaeditor:rounded-[0px] explitaeditor:min-h-[40px] explitaeditor:data-[mini=false]:overflow-x-auto explitaeditor:data-[mini=true]:flex-wrap explitaeditor:data-[mini=true]:gap-y-1 explitaeditor:data-[mini=true]:p-1;
 }
 
 .explita-editor .editor-header .toolbar-button,
 .tippy-box .toolbar-button {
-  @apply size-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80;
+  @apply explitaeditor:size-7 explitaeditor:shrink-0 explitaeditor:flex explitaeditor:flex-col explitaeditor:items-center explitaeditor:justify-center explitaeditor:rounded-sm explitaeditor:hover:bg-neutral-200/80 explitaeditor:cursor-pointer;
 }
 
 .tippy-box .toolbar-button {
-  @apply size-5;
+  @apply explitaeditor:size-5;
 }
 
 .tippy-box .bubble-menu {
-  @apply flex gap-2 bg-white shadow-md rounded p-1;
+  @apply explitaeditor:flex explitaeditor:gap-2 explitaeditor:bg-white explitaeditor:shadow-md explitaeditor:rounded explitaeditor:p-1;
 }
 
 .explita-editor .editor-header .font-size-button {
-  @apply h-7 w-10 text-sm text-center border border-neutral-400 rounded-sm bg-transparent cursor-text;
+  @apply explitaeditor:h-7 explitaeditor:w-10 explitaeditor:text-sm explitaeditor:text-center explitaeditor:border explitaeditor:border-neutral-400 explitaeditor:rounded-sm explitaeditor:bg-transparent explitaeditor:cursor-text;
 }
 
 .explita-editor .editor-header .font-size-input {
-  @apply h-7 w-10 text-sm text-center border border-neutral-400 rounded-sm bg-transparent focus:outline-none focus:ring-0;
+  @apply explitaeditor:h-7 explitaeditor:w-10 explitaeditor:text-sm explitaeditor:text-center explitaeditor:border explitaeditor:border-neutral-400 explitaeditor:rounded-sm explitaeditor:bg-transparent explitaeditor:focus:outline-none explitaeditor:focus:ring-0;
 }
 
 .explita-editor .editor-header .dropdown-trigger-button {
-  @apply h-7 w-[120px] shrink-0 flex items-center justify-between gap-2 rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm;
+  @apply explitaeditor:h-7 explitaeditor:w-[120px] explitaeditor:shrink-0 explitaeditor:flex explitaeditor:items-center explitaeditor:justify-between explitaeditor:gap-2 explitaeditor:rounded-sm explitaeditor:hover:bg-neutral-200/80 explitaeditor:px-1.5 explitaeditor:overflow-hidden explitaeditor:text-sm explitaeditor:cursor-pointer;
 }
 
 .editor-dropdown-content {
-  @apply p-1 flex flex-col gap-y-1;
+  @apply explitaeditor:flex explitaeditor:flex-col explitaeditor:gap-y-1 explitaeditor:z-50 explitaeditor:min-w-[8rem] explitaeditor:overflow-hidden explitaeditor:rounded-md explitaeditor:border explitaeditor:bg-white explitaeditor:border-stone-200 explitaeditor:p-1 explitaeditor:shadow-md;
 }
 
 .editor-dropdown-menu-button {
-  @apply flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80;
+  @apply explitaeditor:flex explitaeditor:items-center explitaeditor:gap-x-2 explitaeditor:px-2 explitaeditor:py-1 explitaeditor:rounded-sm explitaeditor:hover:bg-neutral-200/80 explitaeditor:text-neutral-700 explitaeditor:cursor-pointer;
 }
 
 .editor-dropdown-menu-button span {
-  @apply text-sm;
+  @apply explitaeditor:text-sm;
 }
 
 .editor-keyboard-shortcuts-wrapper {
-  @apply flex flex-col gap-y-1 divide-y overflow-y-auto mt-3 max-h-[calc(100vh-70px)];
+  @apply explitaeditor:flex explitaeditor:flex-col explitaeditor:gap-y-1 explitaeditor:divide-y explitaeditor:divide-gray-200 explitaeditor:overflow-y-auto explitaeditor:mt-3 explitaeditor:max-h-[calc(100vh-70px)];
 }
 
 .editor-keyboard-shortcuts-wrapper .content {
-  @apply flex items-center justify-between px-2 pt-1 text-xs;
+  @apply explitaeditor:flex explitaeditor:items-center explitaeditor:justify-between explitaeditor:px-2 explitaeditor:py-1 explitaeditor:text-xs explitaeditor:text-gray-700;
 }
 
 .editor-keyboard-shortcuts-wrapper .content span:nth-child(2) {
-  @apply text-muted-foreground mr-1 flex gap-x-1;
+  @apply explitaeditor:text-muted-foreground explitaeditor:mr-1 explitaeditor:flex explitaeditor:gap-x-1;
 }
 
 .editor-keyboard-shortcuts-wrapper .content span:nth-child(2) kbd {
-  @apply bg-gray-200/80 rounded px-1 py-0.5 group-hover:bg-gray-200 group-hover:shadow group-hover:shadow-black;
+  @apply explitaeditor:bg-gray-200/80 explitaeditor:rounded explitaeditor:px-1 explitaeditor:py-0.5 explitaeditor:group-hover:bg-gray-200 explitaeditor:group-hover:shadow explitaeditor:group-hover:shadow-black;
 }
 
 .explita-editor .editor-loader {
-  @apply data-[mini=false]:h-[calc(100vh-70px)] data-[mini=true]:h-40 flex flex-col items-center justify-center;
+  @apply explitaeditor:data-[mini=false]:h-[calc(100vh-70px)] explitaeditor:data-[mini=true]:h-40 explitaeditor:flex explitaeditor:flex-col explitaeditor:items-center explitaeditor:justify-center explitaeditor:text-gray-600;
 }
 
 .explita-editor .editor-loader svg {
-  @apply animate-spin size-8;
+  @apply explitaeditor:animate-spin explitaeditor:size-8;
 }
 
 .explita-editor .editor-content-wrapper {
-  @apply flex-1 print:py-0 mx-auto print:w-full print:min-w-0 print:overflow-visible print:scale-100 w-full overflow-y-auto data-[mini=false]:py-2 data-[mini=false]:space-y-2;
+  @apply explitaeditor:flex-1 explitaeditor:print:py-0 explitaeditor:mx-auto explitaeditor:print:w-full explitaeditor:print:min-w-0 explitaeditor:print:overflow-visible explitaeditor:print:scale-100 explitaeditor:w-full explitaeditor:overflow-y-auto explitaeditor:data-[mini=false]:py-2 explitaeditor:data-[mini=false]:space-y-2;
 }
 
 .explita-editor .editor-content-wrapper .ruler-container-wrapper {
-  @apply mx-auto h-6 border-b border-gray-300 flex items-end relative select-none print:hidden;
+  @apply explitaeditor:mx-auto explitaeditor:h-6 explitaeditor:border-b explitaeditor:border-gray-300 explitaeditor:flex explitaeditor:items-end explitaeditor:relative explitaeditor:select-none explitaeditor:print:hidden;
 }
 
 .explita-editor .editor-content-wrapper .ruler-container {
-  @apply w-full h-full relative;
+  @apply explitaeditor:w-full explitaeditor:h-full explitaeditor:relative;
 }
 
 .explita-editor .editor-content-wrapper .ruler-container .mark-10 {
-  @apply absolute bottom-0 w-[1px] h-2 bg-neutral-500;
+  @apply explitaeditor:absolute explitaeditor:bottom-0 explitaeditor:w-[1px] explitaeditor:h-2 explitaeditor:bg-neutral-500;
 }
 
 .explita-editor .editor-content-wrapper .ruler-container .mark-5-10 {
-  @apply absolute bottom-0 w-[1px] h-1.5 bg-neutral-500;
+  @apply explitaeditor:absolute explitaeditor:bottom-0 explitaeditor:w-[1px] explitaeditor:h-1.5 explitaeditor:bg-neutral-500;
 }
 
 .explita-editor .editor-content-wrapper .ruler-container .mark-5 {
-  @apply absolute bottom-0 w-[1px] h-1 bg-neutral-500;
+  @apply explitaeditor:absolute explitaeditor:bottom-0 explitaeditor:w-[1px] explitaeditor:h-1 explitaeditor:bg-neutral-500;
 }
 
 .explita-editor .editor-content-wrapper .ruler-container .digit {
-  @apply absolute bottom-2 text-[10px] text-neutral-500 transform -translate-x-1/2;
+  @apply explitaeditor:absolute explitaeditor:bottom-2 explitaeditor:text-[10px] explitaeditor:text-neutral-500 explitaeditor:transform explitaeditor:-translate-x-1/2;
 }
 
 .explita-editor .editor-content {
-  @apply focus:outline-none bg-white border-[#C7C7C7] flex flex-col cursor-text mx-auto print:!w-full print:border-0;
+  @apply explitaeditor:focus:outline-none explitaeditor:bg-white explitaeditor:border-[#C7C7C7] explitaeditor:flex explitaeditor:flex-col explitaeditor:cursor-text explitaeditor:mx-auto explitaeditor:print:!w-full explitaeditor:print:border-0;
 }
 
-div[data-mini="false"] .editor-content {
-  @apply border;
+.explita-editor div[data-mini="false"] .editor-content {
+  @apply explitaeditor:border;
 }
 
 .explita-editor .menu-trigger {
-  @apply text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto;
+  @apply explitaeditor:text-sm explitaeditor:font-normal explitaeditor:py-0.5 explitaeditor:px-[7px] explitaeditor:rounded-sm explitaeditor:hover:bg-muted explitaeditor:h-auto;
 }
 
 .explita-editor .table-popup-menu {
-  @apply flex gap-3 rounded-br-md rounded-bl-md shadow-sm bg-white p-2 flex-wrap;
+  @apply explitaeditor:flex explitaeditor:gap-3 explitaeditor:rounded-br-md explitaeditor:rounded-bl-md explitaeditor:shadow-sm explitaeditor:bg-white explitaeditor:p-2 explitaeditor:flex-wrap;
 }
 
 .explita-editor .table-popup-menu button {
-  @apply flex items-center gap-1 text-xs text-black hover:bg-neutral-200/60 px-2 py-1 rounded disabled:text-black/40;
+  @apply explitaeditor:flex explitaeditor:items-center explitaeditor:gap-1 explitaeditor:text-xs explitaeditor:text-black explitaeditor:hover:bg-neutral-200/60 explitaeditor:px-2 explitaeditor:py-1 explitaeditor:rounded explitaeditor:disabled:text-black/40;
 }
 
 .explita-editor footer {
-  @apply flex items-center justify-between bottom-0 bg-slate-100 border-t border-slate-300 px-5 py-0.5 text-xs select-none print:hidden;
+  @apply explitaeditor:flex explitaeditor:items-center explitaeditor:justify-between explitaeditor:bottom-0 explitaeditor:bg-slate-100 explitaeditor:border-t explitaeditor:border-slate-300 explitaeditor:px-5 explitaeditor:py-0.5 explitaeditor:text-xs explitaeditor:select-none explitaeditor:print:hidden explitaeditor:text-gray-700;
 }
 
 .explita-editor .tiptap {
-  @apply text-black;
+  @apply explitaeditor:text-black;
 
   div[data-page-break] {
     display: flex;
@@ -213,10 +254,10 @@ div[data-mini="false"] .editor-content {
 
   /* Link styles */
   a {
-    @apply text-blue-600 cursor-pointer;
+    @apply explitaeditor:text-blue-600 explitaeditor:cursor-pointer;
 
     &:hover {
-      @apply underline;
+      @apply explitaeditor:underline;
     }
   }
 
@@ -387,7 +428,7 @@ div[data-mini="false"] .editor-content {
   }
 }
 
-@layer utilities {
+/* @layer utilities {
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
@@ -441,4 +482,4 @@ div[data-mini="false"] .editor-content {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-}
+} */

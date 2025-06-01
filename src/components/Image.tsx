@@ -5,7 +5,6 @@ import { useEditorStore } from "../store/useEditorState";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import {
@@ -61,13 +60,16 @@ export function Image() {
             <LuImage size={16} />
           </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem onClick={onUpload}>
+        <DropdownMenuContent className="editor-dropdown-content">
+          <button onClick={onUpload} className="editor-dropdown-menu-button">
             <LuUpload size={16} /> Upload
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setIsDialogOpen(true)}>
+          </button>
+          <button
+            onClick={() => setIsDialogOpen(true)}
+            className="editor-dropdown-menu-button"
+          >
             <LuFileInput size={16} /> Image URL
-          </DropdownMenuItem>
+          </button>
         </DropdownMenuContent>
       </DropdownMenu>
 

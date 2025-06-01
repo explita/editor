@@ -10,13 +10,13 @@ import { LuMinus, LuPlus } from "react-icons/lu";
 export function Footer() {
   return (
     <footer>
-      <div className="flex items-center gap-2">
+      <div className="explitaeditor:flex explitaeditor:items-center explitaeditor:gap-2">
         <Chars />
         <Words />
         <Pages />
         <Selected />
       </div>
-      <div className="flex items-center gap-2">
+      <div className="explitaeditor:flex explitaeditor:items-center explitaeditor:gap-2">
         <EditorZoom />
         <FullScreen />
         <KeyboardShortcut />
@@ -32,7 +32,10 @@ function Words() {
   return (
     <>
       <p>{words?.toLocaleString()} words</p>
-      <Separator orientation="vertical" className="bg-neutral-200 h-6" />
+      <Separator
+        orientation="vertical"
+        className="explitaeditor:bg-neutral-200 explitaeditor:h-6"
+      />
     </>
   );
 }
@@ -45,7 +48,10 @@ function Chars() {
     <>
       <p>{characters?.toLocaleString()} characters</p>
 
-      <Separator orientation="vertical" className="bg-neutral-200 h-6" />
+      <Separator
+        orientation="vertical"
+        className="explitaeditor:bg-neutral-200 explitaeditor:h-6"
+      />
     </>
   );
 }
@@ -74,7 +80,10 @@ function Pages() {
         {Math.ceil(editorHeight / PAGE_HEIGHT)}
         {editorHeight > PAGE_HEIGHT ? " pages" : " page"}
       </p>
-      <Separator orientation="vertical" className="bg-neutral-200 h-6" />
+      <Separator
+        orientation="vertical"
+        className="explitaeditor:bg-neutral-200 explitaeditor:h-6"
+      />
     </>
   );
 }
@@ -147,10 +156,10 @@ function EditorZoom() {
     }));
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="explitaeditor:flex explitaeditor:items-center explitaeditor:gap-2">
       <button
         onClick={handleZoomOut}
-        className="size-5 shrink-0 flex flex-col items-center justify-center gap-0 rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm disabled:cursor-not-allowed"
+        className="explitaeditor:size-5 explitaeditor:shrink-0 explitaeditor:flex explitaeditor:flex-col explitaeditor:items-center explitaeditor:justify-center explitaeditor:gap-0 explitaeditor:rounded-sm explitaeditor:hover:bg-neutral-200/80 explitaeditor:px-1.5 explitaeditor:overflow-hidden explitaeditor:text-sm explitaeditor:disabled:cursor-not-allowed"
         disabled={zoomLevel <= 0.2}
       >
         <LuMinus size={12} />
@@ -159,13 +168,13 @@ function EditorZoom() {
         disabled={zoomLevel === 1}
         title={zoomLevel > 1 ? "Reset" : ""}
         onClick={() => setEditorOpts((prev) => ({ ...prev, zoomLevel: 1 }))}
-        className="disabled:text-neutral-400"
+        className="explitaeditor:disabled:text-neutral-400"
       >
         Zoom
       </button>
       <button
         onClick={handleZoomIn}
-        className="size-5 shrink-0 flex flex-col items-center justify-center gap-0 rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm disabled:cursor-not-allowed"
+        className="explitaeditor:size-5 explitaeditor:shrink-0 explitaeditor:flex explitaeditor:flex-col explitaeditor:items-center explitaeditor:justify-center explitaeditor:gap-0 explitaeditor:rounded-sm explitaeditor:hover:bg-neutral-200/80 explitaeditor:px-1.5 explitaeditor:overflow-hidden explitaeditor:text-sm explitaeditor:disabled:cursor-not-allowed"
         disabled={zoomLevel >= 2}
       >
         <LuPlus size={12} />

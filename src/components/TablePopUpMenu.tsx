@@ -36,21 +36,21 @@ export function TablePopupMenu() {
               .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
               .run()
           }
-          className="flex-col !p-2"
+          className="explitaeditor:flex explitaeditor:flex-col explitaeditor:!p-2"
         >
-          <FaTable className="text-lg" />
+          <FaTable className="explitaeditor:text-lg" />
           Insert table
         </button>
       </Table>
       <button
         onClick={() => editor.chain().focus().fixTables().run()}
-        className="flex-col !p-2"
+        className="explitaeditor:flex explitaeditor:flex-col explitaeditor:!p-2"
       >
-        <RxTable className="text-lg" />
+        <RxTable className="explitaeditor:text-lg" />
         Fix tables
       </button>
-      <Separator className="h-14 bg-neutral-200" />
-      <div className="grid grid-cols-2">
+      <Separator className="explitaeditor:h-14 explitaeditor:bg-neutral-200" />
+      <div className="explitaeditor:grid explitaeditor:grid-cols-2">
         <button onClick={() => editor.chain().focus().addRowBefore().run()}>
           <TbLayoutAlignTopFilled />
           Add Row Above
@@ -69,8 +69,8 @@ export function TablePopupMenu() {
           Add Column After
         </button>
       </div>
-      <Separator className="h-14 bg-neutral-200" />
-      <div className="flex flex-col">
+      <Separator className="explitaeditor:h-14 explitaeditor:bg-neutral-200" />
+      <div className="explitaeditor:flex explitaeditor:flex-col">
         <button
           onClick={() => editor.chain().focus().mergeCells().run()}
           disabled={editor?.state.selection.ranges.length < 2}
@@ -89,8 +89,8 @@ export function TablePopupMenu() {
           Split cell
         </button>
       </div>
-      <Separator className="h-14 bg-neutral-200" />
-      <div className="grid grid-cols-2">
+      <Separator className="explitaeditor:h-14 explitaeditor:bg-neutral-200" />
+      <div className="explitaeditor:grid explitaeditor:grid-cols-2">
         <button
           onClick={() => editor.chain().focus().toggleHeaderColumn().run()}
         >
@@ -106,8 +106,8 @@ export function TablePopupMenu() {
           Toggle header cell
         </button>
       </div>
-      <Separator className="h-14 bg-neutral-200" />
-      <div className="flex flex-col">
+      <Separator className="explitaeditor:h-14 explitaeditor:bg-neutral-200" />
+      <div className="explitaeditor:flex explitaeditor:flex-col">
         <button onClick={() => editor.chain().focus().goToNextCell().run()}>
           <BiArrowToRight />
           Go to next cell
@@ -117,18 +117,18 @@ export function TablePopupMenu() {
           Go to previous cell
         </button>
       </div>
-      <Separator className="h-14 bg-neutral-200" />
-      <div className="flex flex-col">
+      <Separator className="explitaeditor:h-14 explitaeditor:bg-neutral-200" />
+      <div className="explitaeditor:flex explitaeditor:flex-col">
         <button
           onClick={() => editor.chain().focus().deleteRow().run()}
-          className="!text-red-400 hover:!bg-red-100"
+          className="explitaeditor:!text-red-400 explitaeditor:hover:!bg-red-100"
         >
           <AiOutlineDeleteRow />
           Delete Row
         </button>
         <button
           onClick={() => editor.chain().focus().deleteColumn().run()}
-          className="!text-red-400 hover:!bg-red-100"
+          className="explitaeditor:!text-red-400 explitaeditor:hover:!bg-red-100"
         >
           <AiOutlineDeleteColumn />
           Delete Column
@@ -136,7 +136,7 @@ export function TablePopupMenu() {
       </div>
       <button
         onClick={() => editor.chain().focus().deleteTable().run()}
-        className="flex-col !p-2 bg-red-100 !text-red-500 hover:!bg-red-200 hover:text-red-900"
+        className="explitaeditor:flex explitaeditor:flex-col explitaeditor:!p-2 explitaeditor:bg-red-100 explitaeditor:!text-red-500 explitaeditor:hover:!bg-red-200 explitaeditor:hover:!text-red-900"
       >
         <FaDeleteLeft />
         Delete table
@@ -144,3 +144,117 @@ export function TablePopupMenu() {
     </div>
   );
 }
+
+TablePopupMenu.Mini = function Mini() {
+  const { editor } = useEditorStore();
+
+  if (!editor) return <></>;
+
+  return (
+    <div className="explitaeditor:flex explitaeditor:flex-wrap explitaeditor:gap-2 explitaeditor:px-2 explitaeditor:border-t explitaeditor:border-[#C7C7C7]">
+      <button
+        onClick={() => editor.chain().focus().addRowBefore().run()}
+        title="Add Row Above"
+        className="toolbar-button"
+      >
+        <TbLayoutAlignTopFilled />
+      </button>
+      <button
+        onClick={() => editor.chain().focus().addRowAfter().run()}
+        title="Add Row Below"
+        className="toolbar-button"
+      >
+        <TbLayoutAlignBottomFilled />
+      </button>
+
+      <button
+        onClick={() => editor.chain().focus().addColumnBefore().run()}
+        title="Add Column Before"
+        className="toolbar-button"
+      >
+        <TbLayoutAlignLeftFilled />
+      </button>
+      <button
+        onClick={() => editor.chain().focus().addColumnAfter().run()}
+        title="Add Column After"
+        className="toolbar-button"
+      >
+        <TbLayoutAlignRightFilled />
+      </button>
+      <button
+        onClick={() => editor.chain().focus().mergeCells().run()}
+        disabled={editor?.state.selection.ranges.length < 2}
+        className="toolbar-button"
+      >
+        <AiOutlineMergeCells />
+      </button>
+      <button
+        onClick={() => editor.chain().focus().splitCell().run()}
+        disabled={
+          editor?.state.selection.$anchor.node(-1)?.attrs?.colspan < 2 ||
+          editor?.state.selection.ranges.length > 1
+        }
+        className="toolbar-button"
+      >
+        <AiOutlineSplitCells />
+      </button>
+      <button
+        onClick={() => editor.chain().focus().toggleHeaderColumn().run()}
+        title="Toggle header column"
+        className="toolbar-button"
+      >
+        <TbTableColumn />
+      </button>
+      <button
+        onClick={() => editor.chain().focus().toggleHeaderRow().run()}
+        title="Toggle header row"
+        className="toolbar-button"
+      >
+        <TbTableRow />
+      </button>
+      <button
+        onClick={() => editor.chain().focus().toggleHeaderCell().run()}
+        title="Toggle header cell"
+        className="toolbar-button"
+      >
+        <TbTableAlias />
+      </button>
+      <button
+        onClick={() => editor.chain().focus().goToNextCell().run()}
+        title="Go to next cell"
+        className="toolbar-button"
+      >
+        <BiArrowToRight />
+      </button>
+      <button
+        onClick={() => editor.chain().focus().goToPreviousCell().run()}
+        title="Go to previous cell"
+        className="toolbar-button"
+      >
+        <BiSolidArrowFromRight />
+      </button>
+      <button
+        onClick={() => editor.chain().focus().deleteRow().run()}
+        title="Delete Row"
+        className="toolbar-button explitaeditor:!text-red-400 explitaeditor:hover:!bg-red-100"
+      >
+        <AiOutlineDeleteRow />
+      </button>
+      <button
+        onClick={() => editor.chain().focus().deleteColumn().run()}
+        title="Delete Column"
+        className="toolbar-button explitaeditor:!text-red-400 explitaeditor:hover:!bg-red-100"
+      >
+        <AiOutlineDeleteColumn />
+      </button>
+
+      <button
+        onClick={() => editor.chain().focus().deleteTable().run()}
+        title="Delete table"
+        className="toolbar-button explitaeditor:!text-red-400 explitaeditor:hover:!bg-red-100"
+      >
+        <FaDeleteLeft />
+      </button>
+    </div>
+  );
+};

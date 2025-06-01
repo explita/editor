@@ -5,7 +5,6 @@ import { useEditorStore } from "../store/useEditorState";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { CgMoreVerticalR } from "react-icons/cg";
@@ -63,13 +62,13 @@ export function Menu({ onClose, onCreateNew }: Props) {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="editor-dropdown-content">
-        <DropdownMenuItem onClick={onCreateNew}>
+        <button onClick={onCreateNew} className="editor-dropdown-menu-button">
           <FiEdit size={16} />
           New Document
-        </DropdownMenuItem>
+        </button>
         <Separator orientation="horizontal" className="separator" />
-        <DropdownMenuItem
-          className="gap-2"
+        <button
+          className="editor-dropdown-menu-button"
           onClick={() => {
             if (
               confirm(
@@ -81,24 +80,24 @@ export function Menu({ onClose, onCreateNew }: Props) {
         >
           <FaFilePdf size={16} />
           Download PDF
-        </DropdownMenuItem>
-        <DropdownMenuItem className="gap-2" onClick={onExportHTML}>
+        </button>
+        <button className="editor-dropdown-menu-button" onClick={onExportHTML}>
           <LuGlobe size={16} />
           Download HTML
-        </DropdownMenuItem>
-        <DropdownMenuItem className="gap-2" onClick={onExportJSON}>
+        </button>
+        <button className="editor-dropdown-menu-button" onClick={onExportJSON}>
           <BsFiletypeJson size={16} />
           Download JSON
-        </DropdownMenuItem>
-        <DropdownMenuItem className="gap-2" onClick={onExportText}>
+        </button>
+        <button className="editor-dropdown-menu-button" onClick={onExportText}>
           <LuTextCursor size={16} />
           Download Text
-        </DropdownMenuItem>
+        </button>
         <Separator orientation="horizontal" className="separator" />
-        <DropdownMenuItem className="gap-2" onClick={onClose}>
+        <button className="editor-dropdown-menu-button" onClick={onClose}>
           <LuX size={16} />
           Close
-        </DropdownMenuItem>
+        </button>
       </DropdownMenuContent>
     </DropdownMenu>
   );

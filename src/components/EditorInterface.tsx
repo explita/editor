@@ -1,7 +1,7 @@
 "use client";
 
 import StarterKit from "@tiptap/starter-kit";
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, JSONContent } from "@tiptap/react";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import Table from "@tiptap/extension-table";
@@ -138,6 +138,7 @@ export function CompactEditor({
   width = "100%",
   height = "300px",
   autoGrow = true,
+  initialContent,
   name,
   id,
   outputType = "html",
@@ -174,7 +175,7 @@ export function CompactEditor({
     editorProps: {
       attributes: {
         style: `padding:${padding};
-        width: 100%; min-height: ${height};
+        width: 100%; min-height: calc(${height} - 45px);
         `,
         class: "editor-content",
       },
@@ -239,6 +240,16 @@ export function CompactEditor({
     }
   }, [output]);
 
+  useEffect(() => {
+    if (
+      editor &&
+      initialContent &&
+      (typeof initialContent === "object" || typeof initialContent === "string")
+    ) {
+      editor.commands.setContent(initialContent);
+    }
+  }, [editor, initialContent]);
+
   return (
     <section
       className="explita-editor"
@@ -273,4 +284,5 @@ type MiniEditorProps = {
   id?: string;
   outputType?: "html" | "json" | "text";
   onValueChange?: (value: string) => void;
+  initialContent?: string | JSONContent;
 };

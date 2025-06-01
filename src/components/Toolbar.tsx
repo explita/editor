@@ -197,11 +197,15 @@ export function Toolbar({
       <div className="toolbar-container">
         <div className="toolbar-content" data-mini={isMini}>
           {!isMini && <Menu onCreateNew={onCreateNew} onClose={onClose} />}
-          {!isMini &&
-            sections[0].map((section) => (
-              <ToolbarButton key={section.label} {...section} />
-            ))}
-          <Separator className="separator" />
+          {!isMini && (
+            <>
+              {sections[0].map((section) => (
+                <ToolbarButton key={section.label} {...section} />
+              ))}
+
+              <Separator className="separator" />
+            </>
+          )}
           <FontFamily />
           <Separator className="separator" />
           <FontSize />
@@ -238,7 +242,8 @@ export function Toolbar({
         </div>
         {toolbarRight}
       </div>
-      {editor?.isActive("table") && <TablePopupMenu />}
+      {editor?.isActive("table") && !isMini && <TablePopupMenu />}
+      {editor?.isActive("table") && isMini && <TablePopupMenu.Mini />}
     </>
   );
 }

@@ -27,13 +27,18 @@ Whether you're building a CMS, blog platform, or any content-focused application
 
 ---
 
+Note that this version works better with TailwindCSS >= v4
+<br/>
+
 ##### Installation
 
+```bash
 > npm install @explita/editor
+```
 
 <br/>
 
-**Basic Example**
+##### Full Editor Example
 
 ```javascript
 import React from "react";
@@ -59,7 +64,7 @@ const App = () => {
   const getEditorOpts = (opts) => console.log("Editor Options:", opts);
 
   return (
-    <Editor
+    <Editor.Full
       initialContent={initialContent}
       getHTMLContent={handleHTMLContent}
       getJSONContent={handleJSONContent}
@@ -121,6 +126,32 @@ export default App;
 This ensures consistent styling and layout for documents created or modified in the editor.
 
 `@explita/editor` offers a feature-rich, user-friendly, and developer-focused solution for all your text editing needs.
+
+<br/>
+
+##### Compact Example
+
+```javascript
+import { Editor } from "@explita/editor";
+
+<Editor.Compact
+  height="400px"
+  width="80%"
+  outputType="html"
+  name="json"
+  id="json"
+  onValueChange={(value) => console.log(value)}
+  initialContent={{
+    type: "doc",
+    content: [
+      {
+        type: "paragraph",
+        content: [{ type: "text", text: "Hello, Editor!" }],
+      },
+    ],
+  }}
+/>;
+```
 
 <br/>
 

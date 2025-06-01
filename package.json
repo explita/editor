@@ -15,7 +15,8 @@
     "build": "npm run clean && tsc && npm run copy-assets",
     "copy-assets": "xcopy .\\src\\fonts .\\dist\\fonts /E /I && copy .\\src\\styles.css .\\dist\\styles.css",
     "prepublishOnly": "npm run build",
-    "publish": "npm publish --access public"
+    "publish": "npm publish --access public",
+    "styles": "npx @tailwindcss/cli -i ./src/dev-styles.css -o ./src/styles.css --watch"
   },
   "keywords": [
     "rich-text-editor",
@@ -89,13 +90,14 @@
     "zustand": "^5.0.1"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.1.8",
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
     "@types/react-color": "^3.0.12",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rimraf": "^6.0.1",
-    "tailwindcss": "^3.4.15",
+    "tailwindcss": "^4.1.8",
     "typescript": "^5.8.3"
   },
   "peerDependencies": {

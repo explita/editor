@@ -35,7 +35,7 @@ export function Link() {
           <LuLink2 size={16} />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="p-2.5 flex items-center gap-x-2">
+      <DropdownMenuContent className="explitaeditor:p-2.5 explitaeditor:flex explitaeditor:items-center explitaeditor:gap-x-2">
         <Input
           placeholder="https://www.example.com"
           value={current}
