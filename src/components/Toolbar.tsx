@@ -44,6 +44,8 @@ type ToolbarProps = {
   onClose?: () => void;
 
   toolbarRight?: React.ReactNode | string | null | undefined;
+
+  isMini?: boolean;
 };
 
 type ToolbarButtonProps = {
@@ -76,6 +78,7 @@ export function Toolbar({
   onSave,
   onClose,
   toolbarRight,
+  isMini = false,
 }: ToolbarProps) {
   const { editor } = useEditorStore();
 
@@ -172,11 +175,7 @@ export function Toolbar({
         icon: LuRemoveFormatting,
         onClick: () => editor?.chain().focus().unsetAllMarks().run(),
       },
-      {
-        label: "Inser Page Break",
-        icon: ImPageBreak,
-        onClick: () => editor?.commands.insertPageBreak(),
-      },
+
       // {
       //   label: "Comment",
       //   icon: LuMessageSquare,
@@ -185,14 +184,23 @@ export function Toolbar({
     ],
   ];
 
+  if (!isMini) {
+    sections[2].push({
+      label: "Inser Page Break",
+      icon: ImPageBreak,
+      onClick: () => editor?.commands.insertPageBreak(),
+    });
+  }
+
   return (
     <>
       <div className="toolbar-container">
-        <div className="toolbar-content">
-          <Menu onCreateNew={onCreateNew} onClose={onClose} />
-          {sections[0].map((section) => (
-            <ToolbarButton key={section.label} {...section} />
-          ))}
+        <div className="toolbar-content" data-mini={isMini}>
+          {!isMini && <Menu onCreateNew={onCreateNew} onClose={onClose} />}
+          {!isMini &&
+            sections[0].map((section) => (
+              <ToolbarButton key={section.label} {...section} />
+            ))}
           <Separator className="separator" />
           <FontFamily />
           <Separator className="separator" />
@@ -203,14 +211,14 @@ export function Toolbar({
           {sections[1].map((section) => (
             <ToolbarButton key={section.label} {...section} />
           ))}
+          <TextAlignment />
+          <LineHeight />
           <TextColor />
           <HighlightColor />
           <Separator className="separator" />
           <Link />
           <LinkUnset />
           <Image />
-          <TextAlignment />
-          <LineHeight />
           <List />
           <Table isToolbar>
             <button title="Insert Table" className="toolbar-button">
@@ -221,8 +229,12 @@ export function Toolbar({
           {sections[2].map((section) => (
             <ToolbarButton key={section.label} {...section} />
           ))}
-          <Separator className="separator" />
-          <WordImport />
+          {!isMini && (
+            <>
+              <Separator className="separator" />
+              <WordImport />
+            </>
+          )}
         </div>
         {toolbarRight}
       </div>
@@ -234,4 +246,5 @@ export function Toolbar({
 Toolbar.defaultProps = {
   onSave: () => {},
   toolbarRight: null,
+  isMini: false,
 };

@@ -30,7 +30,7 @@ export function Heading() {
           <LuChevronDown size={16} />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="editor-dropdown-content">
+      <DropdownMenuContent className="editor-dropdown-content" align="start">
         {headings.map(({ label, value, fontSize }) => {
           return (
             <button

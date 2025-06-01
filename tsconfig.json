@@ -7,8 +7,10 @@
       "*": ["*"]
     },
     "outDir": "./dist",
+    // "outDir": "./test/dist",
     "declaration": true,
     "declarationDir": "./dist",
+    // "declarationDir": "./test/dist",
     "emitDeclarationOnly": false,
     "strict": true,
     "module": "ESNext",

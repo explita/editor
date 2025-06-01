@@ -6,7 +6,6 @@ import { EditorInterface } from "./EditorInterface";
 import { Toolbar } from "./Toolbar";
 
 import { useEditorStore } from "../store/useEditorState";
-import "../styles.css";
 import { EditorOpts } from "../lib/utils";
 import { Footer } from "./Footer";
 
@@ -31,7 +30,7 @@ type EditorProps = {
   hideFooter?: boolean;
 };
 
-export function Editor({
+export function FullEditor({
   readOnly = false,
   initialContent,
   getTextContent,
@@ -129,7 +128,7 @@ export function Editor({
   );
 }
 
-Editor.defaultProps = {
+FullEditor.defaultProps = {
   initialContent: "",
   readOnly: false,
   toolbarRight: null,

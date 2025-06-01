@@ -22,7 +22,7 @@ export function FontFamily() {
           <LuChevronDown size={16} />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="editor-dropdown-content">
+      <DropdownMenuContent className="editor-dropdown-content" align="start">
         {fonts.map(({ label, value }) => {
           return (
             <button

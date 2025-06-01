@@ -29,6 +29,8 @@ import { INCH_TO_PX } from "../lib/constants";
 import { LuLoader } from "react-icons/lu";
 import CharacterCount from "@tiptap/extension-character-count";
 import { PopupMenu } from "./PopupMenu";
+import { useEffect, useState } from "react";
+import { Toolbar } from "./Toolbar";
 
 export function EditorInterface() {
   const {
@@ -117,16 +119,158 @@ export function EditorInterface() {
   return (
     <>
       {editor === null ? (
-        <div className="editor-loader">
+        <div className="editor-loader" data-mini={false}>
           <LuLoader />
         </div>
       ) : (
-        <main className="editor-content-wrapper">
+        <main className="editor-content-wrapper" data-mini={false}>
           <Ruler key={editorWidth} />
           <PopupMenu />
-          <EditorContent editor={editor} />
+          <EditorContent editor={editor} data-mini={false} />
         </main>
       )}
     </>
   );
 }
+
+export function CompactEditor({
+  padding = "10px",
+  width = "100%",
+  height = "300px",
+  autoGrow = true,
+  name,
+  id,
+  outputType = "html",
+  onValueChange,
+}: MiniEditorProps) {
+  const { setEditor } = useEditorStore();
+
+  const editor = useEditor({
+    immediatelyRender: false,
+    onCreate({ editor }) {
+      setEditor(editor);
+    },
+    onDestroy() {
+      setEditor(null);
+    },
+    onUpdate: ({ editor }) => {
+      setEditor(editor);
+    },
+    onSelectionUpdate: ({ editor }) => {
+      setEditor(editor);
+    },
+    onTransaction: ({ editor }) => {
+      setEditor(editor);
+    },
+    onFocus: ({ editor }) => {
+      setEditor(editor);
+    },
+    onBlur: ({ editor }) => {
+      setEditor(editor);
+    },
+    onContentError: ({ editor }) => {
+      setEditor(editor);
+    },
+    editorProps: {
+      attributes: {
+        style: `padding:${padding};
+        width: 100%; min-height: ${height};
+        `,
+        class: "editor-content",
+      },
+    },
+    extensions: [
+      StarterKit,
+      LineHeight.configure({
+        types: ["paragraph", "heading"],
+      }),
+      FontSize,
+      CharacterCount,
+      BubbleMenu,
+      Superscript,
+      Subscript,
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+      }),
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        defaultProtocol: "https",
+      }),
+      Highlight.configure({ multicolor: true }),
+      TextStyle,
+      Color,
+      FontFamily,
+      Underline,
+      ImageResize,
+      TaskList,
+      TaskItem.configure({
+        nested: true,
+      }),
+      Table.configure({
+        resizable: true,
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
+    ],
+    content: "",
+  });
+
+  const [output, setOutput] = useState<string>("");
+
+  useEffect(() => {
+    if (editor) {
+      if (outputType === "html") {
+        setOutput(editor.getHTML());
+      } else if (outputType === "json") {
+        setOutput(JSON.stringify(editor.getJSON()));
+      } else if (outputType === "text") {
+        setOutput(editor.getText());
+      }
+    }
+  }, [editor?.getHTML(), editor?.getJSON(), editor?.getText(), outputType]);
+
+  useEffect(() => {
+    if (onValueChange) {
+      setTimeout(() => {
+        onValueChange(output);
+      }, 200);
+    }
+  }, [output]);
+
+  return (
+    <section
+      className="explita-editor"
+      data-mini={true}
+      style={{ width: width, maxHeight: height }}
+    >
+      {editor === null ? (
+        <div className="editor-loader" data-mini={true}>
+          <LuLoader />
+        </div>
+      ) : (
+        <>
+          <header className="editor-header" data-mini={true}>
+            <Toolbar isMini />
+          </header>
+          <main className="editor-content-wrapper" data-mini={true}>
+            <EditorContent editor={editor} data-mini={true} />
+            <input type="hidden" name={name} id={id} value={output} />
+          </main>
+        </>
+      )}
+    </section>
+  );
+}
+
+type MiniEditorProps = {
+  padding?: string;
+  width?: string;
+  height?: string;
+  autoGrow?: boolean;
+  name?: string;
+  id?: string;
+  outputType?: "html" | "json" | "text";
+  onValueChange?: (value: string) => void;
+};

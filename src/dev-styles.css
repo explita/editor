@@ -12,7 +12,7 @@
 }
 
 .explita-editor {
-  @apply flex flex-col bg-[#FAFBFD] font-['Arial'];
+  @apply flex flex-col bg-[#FAFBFD] font-['Arial'] data-[mini=true]:border data-[mini=true]:border-[#C7C7C7];
 }
 
 .editor-item-active {
@@ -28,15 +28,15 @@
 }
 
 .explita-editor .editor-header {
-  @apply flex flex-col pt-0 sticky top-0 left-0 right-0 z-10 bg-white print:hidden text-slate-700;
+  @apply flex flex-col pt-0 sticky top-0 left-0 right-0 z-10 bg-white print:hidden text-slate-700 data-[mini=true]:border-b data-[mini=true]:border-[#C7C7C7];
 }
 
 .explita-editor .editor-header .toolbar-container {
-  @apply flex items-center justify-between gap-x-10 bg-[#F1F4F9] px-4;
+  @apply flex items-center justify-between gap-x-10 bg-[#F1F4F9];
 }
 
 .explita-editor .editor-header .toolbar-content {
-  @apply flex items-center gap-x-0.5 rounded-[0px] min-h-[40px] overflow-x-auto;
+  @apply flex items-center gap-x-0.5 rounded-[0px] min-h-[40px] data-[mini=false]:overflow-x-auto data-[mini=true]:flex-wrap data-[mini=true]:gap-y-1 data-[mini=true]:p-1;
 }
 
 .explita-editor .editor-header .toolbar-button,
@@ -93,7 +93,7 @@
 }
 
 .explita-editor .editor-loader {
-  @apply h-[calc(100vh-70px)] flex flex-col items-center justify-center;
+  @apply data-[mini=false]:h-[calc(100vh-70px)] data-[mini=true]:h-40 flex flex-col items-center justify-center;
 }
 
 .explita-editor .editor-loader svg {
@@ -101,7 +101,7 @@
 }
 
 .explita-editor .editor-content-wrapper {
-  @apply flex-1 py-2 space-y-2 print:py-0 mx-auto print:w-full print:min-w-0 print:overflow-visible print:scale-100 w-full overflow-y-auto;
+  @apply flex-1 print:py-0 mx-auto print:w-full print:min-w-0 print:overflow-visible print:scale-100 w-full overflow-y-auto data-[mini=false]:py-2 data-[mini=false]:space-y-2;
 }
 
 .explita-editor .editor-content-wrapper .ruler-container-wrapper {
@@ -129,7 +129,11 @@
 }
 
 .explita-editor .editor-content {
-  @apply focus:outline-none bg-white border border-[#C7C7C7] flex flex-col cursor-text mx-auto print:!w-full print:border-0;
+  @apply focus:outline-none bg-white border-[#C7C7C7] flex flex-col cursor-text mx-auto print:!w-full print:border-0;
+}
+
+div[data-mini="false"] .editor-content {
+  @apply border;
 }
 
 .explita-editor .menu-trigger {
