@@ -21,7 +21,7 @@ const DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      "fixed inset-0 z-50 bg-black/40  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "explitaeditor:fixed explitaeditor:inset-0 explitaeditor:z-50 explitaeditor:bg-black/40  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
     {...props}
@@ -38,15 +38,15 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "explitaeditor:fixed explitaeditor:left-[50%] explitaeditor:top-[50%] explitaeditor:z-50 explitaeditor:grid explitaeditor:w-full explitaeditor:max-w-lg explitaeditor:translate-x-[-50%] explitaeditor:translate-y-[-50%] explitaeditor:gap-4 explitaeditor:border explitaeditor:bg-background explitaeditor:p-6 explitaeditor:shadow-lg explitaeditor:duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
+        "explitaeditor:fixed explitaeditor:left-[50%] explitaeditor:top-[50%] explitaeditor:z-50 explitaeditor:grid explitaeditor:w-full explitaeditor:max-w-lg explitaeditor:translate-x-[-50%] explitaeditor:translate-y-[-50%] explitaeditor:gap-4 explitaeditor:border explitaeditor:bg-white explitaeditor:p-6 explitaeditor:shadow-lg explitaeditor:duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
         className
       )}
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className="explitaeditor:absolute explitaeditor:right-4 explitaeditor:top-4 explitaeditor:rounded-sm explitaeditor:opacity-70 explitaeditor:ring-offset-background explitaeditor:transition-opacity explitaeditor:hover:opacity-100 explitaeditor:focus:outline-none explitaeditor:focus:ring-2 explitaeditor:focus:ring-ring explitaeditor:focus:ring-offset-2 explitaeditor:disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-        <LuX className="h-4 w-4" />
-        <span className="sr-only">Close</span>
+      <DialogPrimitive.Close className="explitaeditor:absolute explitaeditor:right-4 explitaeditor:top-4 explitaeditor:rounded-sm explitaeditor:opacity-70 explitaeditor:ring-offset-background explitaeditor:transition-opacity explitaeditor:hover:opacity-100 explitaeditor:focus:outline-none explitaeditor:focus:ring-2 explitaeditor:focus:ring-ring explitaeditor:focus:ring-offset-2 explitaeditor:disabled:pointer-events-none data-[state=open]:bg-white data-[state=open]:text-black">
+        <LuX className="explitaeditor:h-4 explitaeditor:w-4" />
+        <span className="explitaeditor:sr-only">Close</span>
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
   </DialogPortal>
@@ -88,7 +88,7 @@ const DialogTitle = React.forwardRef<
   <DialogPrimitive.Title
     ref={ref}
     className={cn(
-      "explitaeditor:text-lg explitaeditor:font-semibold explitaeditor:leading-none explitaeditor:tracking-tight",
+      "explitaeditor:text-lg explitaeditor:font-semibold explitaeditor:leading-none explitaeditor:tracking-tight explitaeditor:text-black",
       className
     )}
     {...props}
@@ -102,7 +102,7 @@ const DialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
+    className={cn("explitaeditor:text-sm explitaeditor:text-black", className)}
     {...props}
   />
 ));

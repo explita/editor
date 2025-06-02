@@ -28,7 +28,7 @@ Whether you're building a CMS, blog platform, or any content-focused application
 ---
 
 Note that this version works better with TailwindCSS >= v4
-<br/>
+<br/><br/>
 
 ##### Installation
 
@@ -150,7 +150,65 @@ import { Editor } from "@explita/editor";
       },
     ],
   }}
+  hideToolbar={false}
+  readOnly={false}
 />;
+```
+
+<br />
+
+#### More Control
+
+Feeling fancy? ✨ You can use editor commands directly for more precise control. We've exposed a set of helpful commands and utility functions.
+
+```javascript
+import { commands, utils } from "@explita/editor";
+
+commands = {
+  setImage,
+  undo,
+  redo,
+  toggleBold,
+  toggleItalic,
+  toggleUnderline,
+  toggleStrikethrough,
+  toggleSuperscript,
+  toggleSubscript,
+  toggleTodoList,
+  clearFormatting,
+  insertHorizontalRule,
+  setFontFamily,
+  setFontSize,
+  setLineHeight,
+  setTextColor,
+  setHighlightColor,
+  setTextAlign,
+  setLink,
+  unsetLink,
+  insertList,
+};
+
+utils = {
+  isActive,
+  setEditorContent,
+  getEditorContent,
+  clearEditorContent,
+  isEditorEmpty,
+  getWordCount,
+};
+
+// Example:
+commands.toggleBold(); // Boldify that paragraph!
+utils.isActive("bold"); // Check if bold is active
+
+//Or
+<button
+  onClick={() =>
+    commands.setImage("imageSrc", opts?: { alt?: string, title?: string })
+  }
+>
+  Add Image
+</button>;
 ```
 
 <br/>

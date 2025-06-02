@@ -133,17 +133,35 @@ export function EditorInterface() {
   );
 }
 
+/**
+ * A compact version of the Editor component, suitable for inline editing.
+ * Supports most features of the full editor, but with a smaller footprint.
+ * @param {{
+ *   padding?: string;
+ *   width?: string;
+ *   height?: string;
+ *   hideToolbar?: boolean;
+ *   readOnly?: boolean;
+ *   initialContent?: string | JSONContent;
+ *   name?: string;
+ *   id?: string;
+ *   outputType?: "html" | "json" | "text";
+ *   onValueChange?: (value: string) => void;
+ * }} props
+ * @returns {JSX.Element}
+ */
 export function CompactEditor({
   padding = "10px",
   width = "100%",
   height = "300px",
-  autoGrow = true,
+  hideToolbar = false,
+  readOnly = false,
   initialContent,
   name,
   id,
   outputType = "html",
   onValueChange,
-}: MiniEditorProps) {
+}: CompactEditorProps) {
   const { setEditor } = useEditorStore();
 
   const editor = useEditor({
@@ -250,6 +268,12 @@ export function CompactEditor({
     }
   }, [editor, initialContent]);
 
+  useEffect(() => {
+    if (editor) {
+      editor.setEditable(!readOnly);
+    }
+  }, [editor, readOnly]);
+
   return (
     <section
       className="explita-editor"
@@ -262,9 +286,15 @@ export function CompactEditor({
         </div>
       ) : (
         <>
-          <header className="editor-header" data-mini={true}>
-            <Toolbar isMini />
-          </header>
+          {!hideToolbar && (
+            <header
+              className="editor-header"
+              data-mini={true}
+              data-focused={editor?.isFocused}
+            >
+              <Toolbar isMini />
+            </header>
+          )}
           <main className="editor-content-wrapper" data-mini={true}>
             <EditorContent editor={editor} data-mini={true} />
             <input type="hidden" name={name} id={id} value={output} />
@@ -275,14 +305,16 @@ export function CompactEditor({
   );
 }
 
-type MiniEditorProps = {
+type CompactEditorProps = {
   padding?: string;
   width?: string;
   height?: string;
-  autoGrow?: boolean;
+  hideToolbar?: boolean;
+  readOnly?: boolean;
   name?: string;
   id?: string;
   outputType?: "html" | "json" | "text";
-  onValueChange?: (value: string) => void;
   initialContent?: string | JSONContent;
+  onValueChange?: (value: string) => void;
+  setImage?: (src: string) => void;
 };

@@ -61,9 +61,9 @@ export function Image() {
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="editor-dropdown-content">
-          <button onClick={onUpload} className="editor-dropdown-menu-button">
+          {/* <button onClick={onUpload} className="editor-dropdown-menu-button">
             <LuUpload size={16} /> Upload
-          </button>
+          </button> */}
           <button
             onClick={() => setIsDialogOpen(true)}
             className="editor-dropdown-menu-button"
@@ -76,7 +76,9 @@ export function Image() {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="text-slate-700">Image URL</DialogTitle>
+            <DialogTitle className="explitaeditor:text-slate-700">
+              Image URL
+            </DialogTitle>
           </DialogHeader>
           <Input
             placeholder="Insert url"

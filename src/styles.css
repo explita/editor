@@ -194,6 +194,17 @@
   }
 }
 @layer utilities {
+  .explitaeditor\:sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
   .explitaeditor\:absolute {
     position: absolute;
   }
@@ -402,6 +413,12 @@
       background-color: color-mix(in oklab, var(--explitaeditor-color-black) 0%, transparent);
     }
   }
+  .explitaeditor\:bg-black\/40 {
+    background-color: var(--explitaeditor-color-black);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--explitaeditor-color-black) 40%, transparent);
+    }
+  }
   .explitaeditor\:bg-destructive {
     background-color: var(--destructive);
   }
@@ -520,6 +537,9 @@
   }
   .explitaeditor\:text-secondary-foreground {
     color: var(--secondary-foreground);
+  }
+  .explitaeditor\:text-slate-700 {
+    color: var(--explitaeditor-color-slate-700);
   }
   .explitaeditor\:underline-offset-4 {
     text-underline-offset: 4px;
@@ -884,6 +904,15 @@
   background-color: var(--explitaeditor-color-white);
   padding-top: calc(var(--explitaeditor-spacing) * 0);
   color: var(--explitaeditor-color-slate-700);
+  transition-property: opacity;
+  transition-timing-function: var(--tw-ease, var(--explitaeditor-default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--explitaeditor-default-transition-duration));
+  &[data-focused="false"] {
+    pointer-events: none;
+  }
+  &[data-focused="false"] {
+    opacity: 50%;
+  }
   &[data-mini="true"] {
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 1px;

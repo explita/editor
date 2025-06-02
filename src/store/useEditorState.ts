@@ -1,7 +1,6 @@
 import { type Editor } from "@tiptap/react";
 import { create } from "zustand";
 import { defaultEditorOpts, EditorOpts, initializeEditor } from "../lib/utils";
-import { DEFAULT_MARGIN } from "../lib/constants";
 
 type EditorState = {
   editor: Editor | null;

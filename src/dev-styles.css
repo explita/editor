@@ -69,7 +69,7 @@
 }
 
 .explita-editor .editor-header {
-  @apply explitaeditor:flex explitaeditor:flex-col explitaeditor:pt-0 explitaeditor:sticky explitaeditor:top-0 explitaeditor:left-0 explitaeditor:right-0 explitaeditor:z-10 explitaeditor:bg-white explitaeditor:print:hidden explitaeditor:text-slate-700 explitaeditor:data-[mini=true]:border-b explitaeditor:data-[mini=true]:border-[#C7C7C7];
+  @apply explitaeditor:flex explitaeditor:flex-col explitaeditor:pt-0 explitaeditor:sticky explitaeditor:top-0 explitaeditor:left-0 explitaeditor:right-0 explitaeditor:z-10 explitaeditor:bg-white explitaeditor:print:hidden explitaeditor:text-slate-700 explitaeditor:data-[mini=true]:border-b explitaeditor:data-[mini=true]:border-[#C7C7C7] explitaeditor:data-[focused=false]:opacity-50 explitaeditor:data-[focused=false]:pointer-events-none explitaeditor:transition-opacity;
 }
 
 .explita-editor .editor-header .toolbar-container {
